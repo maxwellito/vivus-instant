@@ -7,90 +7,82 @@
 		<title>Vivus Instant - inline svg animation</title>
 		<meta name="description" content="Inline SVG Drawing Animation" />
 
+		<link rel="stylesheet" href="style/layout.css">
+
     <script src="scripts/pathformer.js"></script>
     <script src="scripts/vivus.js"></script>
 	</head>
   <body>
 
+		<div class="main-area">
+			<div class="playground"></div>
+			<div class="toolbar"></div>
+		</div>
 
-    <form>
+		<div class="control-panel">
+			<div class="control-panel-head">
+				<h2>Vivus instant</h2>
+			</div>
+			Options
+	    <form>
+				<div class="form-radio">
+					<input  id="form_start_auto" type="radio" name="start" value="autostart">
+					<label for="form_start_auto">Autostart</label>
+					<input  id="form_start_manuel" type="radio" name="start" value="manual">
+					<label for="form_start_manuel">Manual</label>
+				</div>
 
-      <div>
-        Type of animation
-        <select name="type" id="form_type">
-          <option value="delayed">delayed</option>
-          <option value="async">async</option>
-          <option value="oneByOne">oneByOne</option>
-          <option value="script">script</option>
-          <option value="scenario">scenario</option>
-          <option value="scenario-sync">scenario-sync</option>
-        </select>
-      </div>
+				<div class="form-input-inline">
+	        <span class="label">Animation type</span>
+	        <select name="type" id="form_type">
+	          <option value="delayed">delayed</option>
+	          <option value="async">async</option>
+	          <option value="oneByOne">oneByOne</option>
+	          <option value="script">script</option>
+	          <option value="scenario">scenario</option>
+	          <option value="scenario-sync">scenario-sync</option>
+	        </select>
+	      </div>
 
-      <div>
-        Start <small>Way of triggering</small>
-        <label>
-          <input type="radio" name="start" value="autostart">
-          Autostart
-        </label>
-        <label>
-          <input type="radio" name="start" value="manual">
-          Manual
-        </label>
-      </div>
+	      <label class="form-input-inline">
+	        <span class="label">Interval pause <span class="label-info">in ms</span></span>
+	        <input type="number" name="intervalPause">
+	      </label>
 
-      <div>
-        <label>
-          Loop
+	      <label class="form-input-inline">
+	        <span class="label">Duration <span class="label-info">in ms</span></span>
+	        <input type="number" min="0" name="duration"/>
+	      </label>
+
+	      <label class="form-input-inline">
+	        <span class="label">Delay <span class="label-info">in ms</span></span>
+	        <input type="number" min="0" name="delay"/>
+	      </label>
+
+	      <div class="form-input-inline">
+	        Path timing function
+	        <select name="pathTimingFunction">
+	          <option value="linear">Linear</option>
+	          <option value="ease">Ease</option>
+	          <option value="ease_in">Ease-in</option>
+	          <option value="ease_out">Ease-out</option>
+	          <option value="ease_in_out">Ease in out</option>
+	        </select>
+	      </div>
+
+	      <div class="form-input-inline">
+	        <span class="label">Dash-gap <span class="label-info">in px</span></span>
+	        <input type="number" min="0" name="dashgap"/>
+	      </div>
+
+	      <label class="form-input">
+          <span class="label">Loop</span>
           <input type="checkbox" name="loop">
-        </label>
-      </div>
+	      </label>
+	    </form>
 
-      <div>
-        Interval pause
-        <label>
-          in ms
-          <input type="number" name="intervalPause">
-        </label>
-      </div>
-
-      <div>
-        Duration
-        <label>
-          in ms
-          <input type="number" min="0" name="duration"/>
-        </label>
-      </div>
-
-      <div>
-        Delay
-        <label>
-          in ms
-          <input type="number" min="0" name="delay"/>
-        </label>
-      </div>
-
-      <div>
-        Path timing function
-        <select name="pathTimingFunction" id="">
-          <option value="linear">Linear</option>
-          <option value="ease">Ease</option>
-          <option value="ease_in">Ease-in</option>
-          <option value="ease_out">Ease-out</option>
-          <option value="ease_out_bounce">Ease-out bounce</option>
-        </select>
-      </div>
-
-      <div>
-        Dash-gap
-        <label>
-          <input type="number" min="0" name="dashgap"/>
-        </label>
-      </div>
-
-    </form>
-
-
+			<button onclick="obt.classList.add('start')">START</button>
+		</div>
 
 <style>
   path {
@@ -137,7 +129,6 @@ xx.setNaming();
 dd.innerHTML = xx.render();
 </script>
 
-<button onclick="obt.classList.add('start')">START</button>
 
   </body>
 </html>

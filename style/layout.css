@@ -1,0 +1,102 @@
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+body {
+  margin: 0;
+}
+
+input, select, option {
+  font-size: 1rem;
+  padding: .25em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input:active, select:active, option:active,
+input:focus,  select:focus,  option:focus  {
+  border: 1px solid #333;
+  outline: none;
+}
+
+
+/* Control panel *****************************************/
+.control-panel {
+
+}
+
+.form-input, .form-input-inline, .form-radio {
+  display: block;
+  margin: 1rem 0;
+}
+
+.form-input input[type="number"],
+.form-input input[type="text"] {
+  display: block;
+}
+
+.label {
+  padding: .25em 0;
+}
+
+.label-info {
+  font-style: italic;
+  font-size: .75em;
+}
+
+
+
+
+.form-input-inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input-inline input,
+.form-input-inline select {
+  width: 6rem;
+}
+
+
+
+/* Form radio */
+.form-radio {
+   display: flex;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+.form-radio > input[type="radio"] {
+  display: none;
+}
+
+.form-radio > label {
+  flex-grow: 1;
+  padding: .25em;
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+
+.form-radio > label:last-child {
+  border-right: none;
+}
+
+.form-radio > input[type="radio"]:checked + label {
+  background-color: #ccc;
+}
+
+
+
+
+@media (min-width: 768px) {
+  .control-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    padding: 1rem;
+    border-right: 2px solid #eee;
+  }
+}
