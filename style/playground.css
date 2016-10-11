@@ -5,3 +5,10 @@
 .playground.dark {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAK0lEQVQoU2NkYGD4LygoyPD+/XsGbIBRUFDwf2hoKMPq1auxKyBowlBQAAC5ViA0t+GxeQAAAABJRU5ErkJggg==) repeat;
 }
+
+.playground svg {
+  height: 100%;
+  width: 100%;
+  padding: 2%;
+  box-sizing: border-box;
+}
