@@ -1,0 +1,64 @@
+/* Control panel */
+.control-panel {
+  padding: 1rem;
+}
+
+
+/* Label */
+.label {
+  padding: .25em 0;
+}
+
+.label-info {
+  font-style: italic;
+  font-size: .75em;
+}
+
+
+/* Form input */
+.form-input, .form-input-inline, .form-radio {
+  display: block;
+  margin: 1rem 0;
+}
+
+.form-input input[type="number"],
+.form-input input[type="text"] {
+  display: block;
+}
+
+.form-input-inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input-inline input,
+.form-input-inline select {
+  width: 6rem;
+}
+
+
+/* Form radio */
+.form-radio {
+   display: flex;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+.form-radio > input[type="radio"] {
+  display: none;
+}
+
+.form-radio > label {
+  flex-grow: 1;
+  padding: .25em;
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+
+.form-radio > label:last-child {
+  border-right: none;
+}
+
+.form-radio > input[type="radio"]:checked + label {
+  background-color: #ccc;
+}

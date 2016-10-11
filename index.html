@@ -8,16 +8,16 @@
 		<meta name="description" content="Inline SVG Drawing Animation" />
 
 		<link rel="stylesheet" href="style/layout.css">
+		<link rel="stylesheet" href="style/control-panel.css">
+		<link rel="stylesheet" href="style/playground.css">
 
     <script src="scripts/pathformer.js"></script>
     <script src="scripts/vivus.js"></script>
 	</head>
   <body>
 
-		<div class="main-area">
-			<div class="playground"></div>
-			<div class="toolbar"></div>
-		</div>
+		<div class="playground light"></div>
+		<div class="toolbar"></div>
 
 		<div class="control-panel">
 			<div class="control-panel-head">
@@ -60,7 +60,7 @@
 	      </label>
 
 	      <div class="form-input-inline">
-	        Path timing function
+	        <span class="label">Path timing function</span>
 	        <select name="pathTimingFunction">
 	          <option value="linear">Linear</option>
 	          <option value="ease">Ease</option>

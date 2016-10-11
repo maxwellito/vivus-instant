@@ -1,0 +1,7 @@
+.playground.light {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAALUlEQVQoU2NkYGBgePfu3X8hISFGEBsdMIIkV69ezRAaGopNngGsC68JQ0EBAD6nItJPfzu2AAAAAElFTkSuQmCC) repeat;
+}
+
+.playground.dark {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAK0lEQVQoU2NkYGD4LygoyPD+/XsGbIBRUFDwf2hoKMPq1auxKyBowlBQAAC5ViA0t+GxeQAAAABJRU5ErkJggg==) repeat;
+}
