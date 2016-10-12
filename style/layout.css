@@ -8,7 +8,11 @@ html, body {
   height: 100%;
 }
 
-input[type=text], input[type=number], select, option {
+label {
+  cursor: pointer;
+}
+
+input, select, option {
   font-size: 1rem;
   padding: .25em;
   border: none;
@@ -18,14 +22,54 @@ input[type=text], input[type=number], select, option {
   line-height: 1.2;
   height: 1.2rem;
   box-sizing: initial;
+  cursor: pointer;
   -moz-appearance: none;
   -webkit-appearance: none;
 }
 
-input:active, select:active, option:active,
-input:focus,  select:focus,  option:focus  {
+input:active, select:active, option:active, button:active,
+input:focus,  select:focus,  option:focus,  button:focus {
   border-color: #333;
   outline: none;
+}
+
+input[type='checkbox'] {
+  padding: 0 .75em;
+  background-color: #ccc;
+  border: none;
+  border-radius: .6em;
+  color: #999;
+  transition: all .3s;
+}
+input[type='checkbox']:before {
+  content: "off";
+}
+
+input[type='checkbox']:checked {
+  background-color: #1af;
+  color: #fff;
+}
+input[type='checkbox']:checked:before {
+  content: "on";
+}
+
+button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: none;
+}
+button:hover {
+  background: #ccc;
+}
+button:active {
+  background: #333;
+  color: #fff;
+}
+button.full-width {
+  width: 100%;
+  padding: .5em;
+  box-sizing: border-box;
 }
 
 

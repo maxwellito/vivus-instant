@@ -16,14 +16,9 @@
 
 
 /* Form input */
-.form-input, .form-input-inline, .form-radio {
+.form-input-inline, .form-radio {
   display: block;
   margin: 1rem 0;
-}
-
-.form-input input[type="number"],
-.form-input input[type="text"] {
-  display: block;
 }
 
 .form-input-inline {
@@ -31,7 +26,8 @@
   justify-content: space-between;
 }
 
-.form-input-inline input,
+.form-input-inline input[type="text"],
+.form-input-inline input[type="number"],
 .form-input-inline select {
   width: 6rem;
 }

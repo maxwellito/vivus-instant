@@ -13,8 +13,7 @@
 	</head>
   <body>
 
-		<div class="playground light">
-		</div>
+		<div class="playground light"></div>
 		<div class="toolbar"></div>
 
 		<div class="control-panel">
@@ -24,7 +23,7 @@
 			Options
 	    <form>
 				<div class="form-radio">
-					<input  id="form_start_auto" type="radio" name="start" value="autostart">
+					<input  id="form_start_auto" type="radio" name="start" value="autostart" checked="checked">
 					<label for="form_start_auto">Autostart</label>
 					<input  id="form_start_manuel" type="radio" name="start" value="manual">
 					<label for="form_start_manuel">Manual</label>
@@ -33,7 +32,7 @@
 				<div class="form-input-inline">
 	        <span class="label">Animation type</span>
 	        <select name="type" id="form_type">
-	          <option value="delayed">delayed</option>
+	          <option value="delayed" selected="selected">delayed</option>
 	          <option value="async">async</option>
 	          <option value="oneByOne">oneByOne</option>
 	          <option value="script">script</option>
@@ -43,24 +42,19 @@
 	      </div>
 
 	      <label class="form-input-inline">
-	        <span class="label">Interval pause <span class="label-info">in ms</span></span>
-	        <input type="number" name="intervalPause">
-	      </label>
-
-	      <label class="form-input-inline">
 	        <span class="label">Duration <span class="label-info">in ms</span></span>
-	        <input type="number" min="0" name="duration"/>
+	        <input type="number" min="0" name="duration" value="3000"/>
 	      </label>
 
 	      <label class="form-input-inline">
 	        <span class="label">Delay <span class="label-info">in ms</span></span>
-	        <input type="number" min="0" name="delay"/>
+	        <input type="number" min="0" name="delay" placeholder="auto"/>
 	      </label>
 
 	      <div class="form-input-inline">
 	        <span class="label">Path timing function</span>
 	        <select name="pathTimingFunction">
-	          <option value="linear">Linear</option>
+	          <option value="linear" selected="selected">Linear</option>
 	          <option value="ease">Ease</option>
 	          <option value="ease_in">Ease-in</option>
 	          <option value="ease_out">Ease-out</option>
@@ -73,13 +67,30 @@
 	        <input type="number" min="0" name="dashgap"/>
 	      </div>
 
-	      <label class="form-input">
+	      <label class="form-input-inline">
           <span class="label">Loop</span>
-          <input type="checkbox" name="loop">
+          <input type="checkbox" name="loop" x-panel="control-loop-panel">
 	      </label>
+
+				<div class="control-loop-panel" style="display: none;">
+					<label class="form-input-inline">
+		        <span class="label">Interval pause <span class="label-info">in ms</span></span>
+		        <input type="number" name="intervalPause" value="3000"/>
+		      </label>
+
+					<label class="form-input-inline">
+		        <span class="label">Fade duration <span class="label-info">in ms</span></span>
+		        <input type="number" name="fadeDuration" value="400"/>
+		      </label>
+
+					<label class="form-input-inline">
+		        <span class="label">Start delay <span class="label-info">in ms</span></span>
+		        <input type="number" name="startDelay" value="800"/>
+		      </label>
+				</div>
 	    </form>
 
-			<button onclick="draw()">START</button>
+			<button onclick="draw()" class="full-width">START</button>
 		</div>
 
 <style>
@@ -99,6 +110,7 @@
 <script src="scripts/pathformer.js"></script>
 <script src="scripts/vivus.js"></script>
 <script src="scripts/controller.js"></script>
+<script src="scripts/OptionsCtrl.js"></script>
 
 
 <script>
@@ -114,7 +126,6 @@ function draw () {
 	  dashGap:null
 	}
 
-
 	new Pathformer(mySVG);
 	xx = new Vivus(mySVG, opt);
 	xx.mapping();
@@ -123,7 +134,8 @@ function draw () {
 	mySVG.classList.add('start')
 }
 
-new PlaygroundController(document.querySelector('.playground'))
+new PlaygroundController(document.querySelector('.playground'));
+var opt = new OptionController(document.querySelector('.control-panel'));
 </script>
 
   </body>
