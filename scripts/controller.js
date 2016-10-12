@@ -39,10 +39,12 @@ PlaygroundController.prototype.dropped = function (event) {
 };
 
 PlaygroundController.prototype.buildSVG = function (event) {
-  var encodedData = event.currentTarget.result;
-  encodedData = encodedData.substr(encodedData.indexOf('base64,')+7);
+  var fileContent = event.currentTarget.result;
+  fileContent = atob(fileContent.substr(fileContent.indexOf('base64,')+7));
+  fileContent = fileContent.substr(fileContent.indexOf('<svg'));
+  fileContent = fileContent.substr(0, fileContent.indexOf('</svg>') + 6);
   var wrapDom = document.createElement('div');
-  wrapDom.innerHTML = atob(encodedData);
+  wrapDom.innerHTML = fileContent;
 
   if (this.svg) {
     this.el.removeChild(this.svgTag);

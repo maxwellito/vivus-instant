@@ -93,13 +93,7 @@
 			<button onclick="draw()" class="full-width">START</button>
 		</div>
 
-<style>
-  path {
-    fill: none;
-    stroke-width: 2px;
-    stroke: black;
-  }
-</style>
+
 <style id="dd"></style>
 
 
@@ -126,16 +120,16 @@ function draw () {
 	  dashGap:null
 	}
 
-	new Pathformer(mySVG);
-	xx = new Vivus(mySVG, opt);
+	new Pathformer(playgroundCtrl.svgTag);
+	xx = new Vivus(playgroundCtrl.svgTag, optCtrl.getOptions());
 	xx.mapping();
 	xx.setNaming();
 	dd.innerHTML = xx.render();
-	mySVG.classList.add('start')
+	playgroundCtrl.svgTag.classList.add('start')
 }
 
-new PlaygroundController(document.querySelector('.playground'));
-var opt = new OptionController(document.querySelector('.control-panel'));
+var playgroundCtrl = new PlaygroundController(document.querySelector('.playground'));
+var optCtrl = new OptionController(document.querySelector('.control-panel'));
 </script>
 
   </body>
