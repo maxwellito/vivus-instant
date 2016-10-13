@@ -1,7 +1,11 @@
 function ViewerController (el) {
   this.el = el;
+
   this.svgTag = null;
   this.svgFileName = null;
+  this.svgPre = '';
+  this.svgPost = '';
+
   this.newSvgCb = null;
 
   // Listen for drag and drop
@@ -40,12 +44,35 @@ ViewerController.prototype.dropped = function (event) {
 
 ViewerController.prototype.buildSVG = function (event) {
   var fileContent = event.currentTarget.result;
-  fileContent = atob(fileContent.substr(fileContent.indexOf('base64,')+7));
-  fileContent = fileContent.substr(fileContent.indexOf('<svg'));
-  fileContent = fileContent.substr(0, fileContent.indexOf('</svg>') + 6);
+
+  if (!fileContent) {
+    throw new Error('Empty file dropped. Or maybe invisible SVG? If so no animation needed.');
+  }
+
+  // Transform base64 to XML
+  // fileContent = atob(fileContent);
+  if (!~fileContent.indexOf('image/svg+xml')) {
+    throw new Error('Invalid file dropped. It is not a SVG.');
+  }
+  fileContent = atob(fileContent.substr(fileContent.indexOf('base64,') + 7));
+
+  // Find SVG tag indexes
+  var indexStart = fileContent.indexOf('<svg'),
+      indexEnd   = fileContent.indexOf('</svg>');
+
+  if (!~indexStart || !~indexEnd) {
+    throw new Error('Cannot find SVG tag. You sure it\'s an SVG and not a cat picture?');
+  }
+
+  // Save content pre and post SVG
+  this.svgPre  = fileContent.substr(0, indexStart);
+  this.svgPost = fileContent.substr(indexEnd + 6);
+  fileContent  = fileContent.substr(indexStart, indexEnd + 6 - indexStart);
+
   var wrapDom = document.createElement('div');
   wrapDom.innerHTML = fileContent;
 
+  // Delete previous SVG if existing
   if (this.svg) {
     this.el.removeChild(this.svgTag);
     this.svgTag.remove();

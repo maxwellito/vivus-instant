@@ -3,10 +3,10 @@
 var requestAnimFrame, cancelAnimFrame, parsePositiveInt;
 
 /**
- * VivusInstant
+ * VivusInstantInstant
  * Beta version
  *
- * Fork of Vivus to make inline animated SVG
+ * Fork of VivusInstant to make inline animated SVG
  */
 
 /**
@@ -41,11 +41,11 @@ var requestAnimFrame, cancelAnimFrame, parsePositiveInt;
  * Good luck.
  *
  * @constructor
- * @this {Vivus}
+ * @this {VivusInstant}
  * @param {DOM|String}   element  Dom element of the SVG or id of it
  * @param {Object}       options  Options about the animation
  */
-function Vivus (element, options) {
+function VivusInstant (element, options) {
   // Setup
   this.setElement(element);
   this.setOptions(options);
@@ -64,17 +64,17 @@ function Vivus (element, options) {
  *
  * @param {DOM|String}   element  SVG Dom element or id of it
  */
-Vivus.prototype.setElement = function (element) {
+VivusInstant.prototype.setElement = function (element) {
   // Basic check
   if (typeof element === 'undefined') {
-    throw new Error('Vivus [constructor]: "element" parameter is required');
+    throw new Error('VivusInstant [constructor]: "element" parameter is required');
   }
 
   // Set the element
   if (element.constructor === String) {
     element = document.getElementById(element);
     if (!element) {
-      throw new Error('Vivus [constructor]: "element" parameter is not related to an existing ID');
+      throw new Error('VivusInstant [constructor]: "element" parameter is not related to an existing ID');
     }
   }
   this.el = element;
@@ -87,13 +87,13 @@ Vivus.prototype.setElement = function (element) {
  *
  * @param  {object} options Object from the constructor
  */
-Vivus.prototype.setOptions = function (options) {
+VivusInstant.prototype.setOptions = function (options) {
   var allowedTypes = ['delayed', 'async', 'oneByOne', 'scenario', 'scenario-sync'];
   var allowedStarts =  ['manual', 'autostart'];
 
   // Set the animation type
   if (options.type && allowedTypes.indexOf(options.type) === -1) {
-    throw new Error('Vivus [constructor]: ' + options.type + ' is not an existing animation `type`');
+    throw new Error('VivusInstant [constructor]: ' + options.type + ' is not an existing animation `type`');
   }
   else {
     this.type = options.type || allowedTypes[0];
@@ -101,7 +101,7 @@ Vivus.prototype.setOptions = function (options) {
 
   // Set the start type
   if (options.start && allowedStarts.indexOf(options.start) === -1) {
-    throw new Error('Vivus [constructor]: ' + options.start + ' is not an existing `start` option');
+    throw new Error('VivusInstant [constructor]: ' + options.start + ' is not an existing `start` option');
   }
   else {
     this.start = options.start || allowedStarts[0];
@@ -119,7 +119,7 @@ Vivus.prototype.setOptions = function (options) {
   this.frameLength = this.currentFrame = this.delayUnit = this.speed = this.handle = null;
 
   if (this.delay >= this.duration) {
-    throw new Error('Vivus [constructor]: delay must be shorter than duration');
+    throw new Error('VivusInstant [constructor]: delay must be shorter than duration');
   }
 };
 
@@ -151,7 +151,7 @@ Vivus.prototype.setOptions = function (options) {
  * ```
  *
  */
-Vivus.prototype.mapping = function () {
+VivusInstant.prototype.mapping = function () {
   var i, paths, path, pAttrs, pathObj, totalLength, lengthMeter, timePoint;
   timePoint = totalLength = lengthMeter = 0;
   paths = this.el.querySelectorAll('path');
@@ -169,7 +169,7 @@ Vivus.prototype.mapping = function () {
     // Test if the path length is correct
     if (isNaN(pathObj.length)) {
       if (window.console && console.warn) {
-        console.warn('Vivus [mapping]: cannot retrieve a path element length', path);
+        console.warn('VivusInstant [mapping]: cannot retrieve a path element length', path);
       }
       continue;
     }
@@ -238,7 +238,7 @@ Vivus.prototype.mapping = function () {
  * Other improvments are planned. Like detecting
  * is the path got a stroke or a valid opacity.
  */
-Vivus.prototype.isInvisible = function (el) {
+VivusInstant.prototype.isInvisible = function (el) {
   var rect,
     ignoreAttr = el.getAttribute('data-ignore');
 
@@ -264,7 +264,7 @@ Vivus.prototype.isInvisible = function (el) {
   * @param  {string}   type   Key type to generate
   * @return {[string]}        The id
   */
- Vivus.prototype.generateKey = function (length) {
+ VivusInstant.prototype.generateKey = function (length) {
  	var output = '',
  		src = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqsrtuvwxyz',
  		len = src.length;
@@ -277,7 +277,7 @@ Vivus.prototype.isInvisible = function (el) {
  };
 
 
-Vivus.prototype.setNaming = function () {
+VivusInstant.prototype.setNaming = function () {
   this.elementClass = this.generateKey(8);
   for (var i = 0; i < this.map.length; i++) {
     this.map[i].class = this.elementClass + '_' + i;
@@ -285,7 +285,7 @@ Vivus.prototype.setNaming = function () {
   }
 };
 
-Vivus.prototype.render = function () {
+VivusInstant.prototype.render = function () {
   var pathObj, anim, styles = {};
 
   var keyf = [];

@@ -1,4 +1,8 @@
 /* Control panel */
+.sidebar {
+  overflow: auto;
+}
+
 .sidebar > * {
   padding: 1rem;
 }
