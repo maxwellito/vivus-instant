@@ -1,6 +1,11 @@
 /* Control panel */
-.control-panel {
+.sidebar > * {
   padding: 1rem;
+}
+
+.sidebar-head {
+  background-color: #333;
+  color: #fff;
 }
 
 

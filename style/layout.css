@@ -8,6 +8,10 @@ html, body {
   height: 100%;
 }
 
+a {
+  color: inherit;
+}
+
 label {
   cursor: pointer;
 }
@@ -75,22 +79,22 @@ button.full-width {
 
 
 @media (min-width: 768px) {
-  .control-panel {
+  .sidebar {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    width: 20rem;
+    width: 22rem;
     border-right: 2px solid #eee;
   }
 
-  .playground, .toolbar {
+  .viewer, .toolbar {
     position: fixed;
     right: 0;
     left: 22rem;
   }
 
-  .playground {
+  .viewer {
     top: 0;
     bottom: 2rem;
     background: red;

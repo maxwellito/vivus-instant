@@ -1,4 +1,4 @@
-function PlaygroundController (el) {
+function ViewerController (el) {
   this.el = el;
   this.svgTag = null;
   this.svgFileName = null;
@@ -10,21 +10,21 @@ function PlaygroundController (el) {
   el.addEventListener('dragleave', this.dragLeave.bind(this), false);
 }
 
-PlaygroundController.prototype.onNewSVG = function (callback) {
+ViewerController.prototype.onNewSVG = function (callback) {
   this.newSvgCb = callback;
 }
 
-PlaygroundController.prototype.dragOver = function (event) {
+ViewerController.prototype.dragOver = function (event) {
   event.preventDefault();
   this.el.classList.add('droppin');
 };
 
-PlaygroundController.prototype.dragLeave = function (event) {
+ViewerController.prototype.dragLeave = function (event) {
   event.preventDefault();
   this.el.classList.remove('droppin');
 };
 
-PlaygroundController.prototype.dropped = function (event) {
+ViewerController.prototype.dropped = function (event) {
   event.preventDefault();
 
   var file, data = event.dataTransfer;
@@ -38,7 +38,7 @@ PlaygroundController.prototype.dropped = function (event) {
   this.svgFileName = data.files[0].name;
 };
 
-PlaygroundController.prototype.buildSVG = function (event) {
+ViewerController.prototype.buildSVG = function (event) {
   var fileContent = event.currentTarget.result;
   fileContent = atob(fileContent.substr(fileContent.indexOf('base64,')+7));
   fileContent = fileContent.substr(fileContent.indexOf('<svg'));

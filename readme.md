@@ -6,16 +6,16 @@ So dat is for you.
 
 ## Le plan
 
-- Build prettey layout
-- Build main controller
-- Build drag and drop system
-- Make download buttons
-- Clean the VivusInstant code
-- Make optimisations about CSS outputted
-- Make user feedback (show error and stuff)
-- Make pretty splash logo
-- Make the background color changeable
-- Add github link
+[x] Build prettey layout
+[ ] Build main controller
+[x] Build drag and drop system
+[ ] Make download buttons
+[ ] Clean the VivusInstant code
+[ ] Make optimisations about CSS outputted
+[ ] Make user feedback (show error and stuff)
+[ ] Make pretty splash logo
+[ ] Make the background color changeable
+[ ] Add github link
 
 
 ## Le Flow

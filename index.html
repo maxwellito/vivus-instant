@@ -8,19 +8,20 @@
 		<meta name="description" content="Inline SVG Drawing Animation" />
 
 		<link rel="stylesheet" href="style/layout.css">
-		<link rel="stylesheet" href="style/control-panel.css">
-		<link rel="stylesheet" href="style/playground.css">
+		<link rel="stylesheet" href="style/sidebar.css">
+		<link rel="stylesheet" href="style/viewer.css">
 	</head>
   <body>
 
-		<div class="playground light"></div>
+		<div class="viewer light"></div>
 		<div class="toolbar"></div>
 
-		<div class="control-panel">
-			<div class="control-panel-head">
+		<div class="sidebar">
+			<div class="sidebar-head">
 				<h2>Vivus instant</h2>
+				<p>More help about options on <a href="https://github.com/maxwellito/vivus">Vivus documentation</a></p>
+				<p><a href="https://github.com/maxwellito/vivus-instant">GitHub</a></p>
 			</div>
-			Options
 	    <form>
 				<div class="form-radio">
 					<input  id="form_start_auto" type="radio" name="start" value="autostart" checked="checked">
@@ -31,7 +32,7 @@
 
 				<div class="form-input-inline">
 	        <span class="label">Animation type</span>
-	        <select name="type" id="form_type">
+	        <select name="type">
 	          <option value="delayed" selected="selected">delayed</option>
 	          <option value="async">async</option>
 	          <option value="oneByOne">oneByOne</option>
@@ -88,9 +89,8 @@
 		        <input type="number" name="startDelay" value="800"/>
 		      </label>
 				</div>
+				<button type="button" onclick="draw()" class="full-width">START</button>
 	    </form>
-
-			<button onclick="draw()" class="full-width">START</button>
 		</div>
 
 
@@ -103,7 +103,7 @@
 
 <script src="scripts/pathformer.js"></script>
 <script src="scripts/vivus.js"></script>
-<script src="scripts/controller.js"></script>
+<script src="scripts/ViewerCtrl.js"></script>
 <script src="scripts/OptionsCtrl.js"></script>
 
 
@@ -120,16 +120,16 @@ function draw () {
 	  dashGap:null
 	}
 
-	new Pathformer(playgroundCtrl.svgTag);
-	xx = new Vivus(playgroundCtrl.svgTag, optCtrl.getOptions());
+	new Pathformer(viewerCtrl.svgTag);
+	xx = new VivusInstant(viewerCtrl.svgTag, optCtrl.getOptions());
 	xx.mapping();
 	xx.setNaming();
 	dd.innerHTML = xx.render();
-	playgroundCtrl.svgTag.classList.add('start')
+	viewerCtrl.svgTag.classList.add('start')
 }
 
-var playgroundCtrl = new PlaygroundController(document.querySelector('.playground'));
-var optCtrl = new OptionController(document.querySelector('.control-panel'));
+var viewerCtrl = new ViewerController(document.querySelector('.viewer'));
+var optCtrl = new OptionController(document.querySelector('.sidebar'));
 </script>
 
   </body>
