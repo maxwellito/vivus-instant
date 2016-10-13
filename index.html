@@ -65,11 +65,6 @@
 	        </select>
 	      </div>
 
-	      <div class="form-input-inline">
-	        <span class="label">Dash-gap <span class="label-info">in px</span></span>
-	        <input type="number" min="0" name="dashgap"/>
-	      </div>
-
 	      <label class="form-input-inline">
           <span class="label">Loop</span>
           <input type="checkbox" name="loop" x-panel="control-loop-panel">
@@ -77,7 +72,7 @@
 
 				<div class="control-loop-panel" style="display: none;">
 					<label class="form-input-inline">
-		        <span class="label">Interval pause <span class="label-info">in ms</span></span>
+		        <span class="label">End pause <span class="label-info">in ms</span></span>
 		        <input type="number" name="intervalPause" value="3000"/>
 		      </label>
 
@@ -124,8 +119,7 @@ function draw () {
 
 	new Pathformer(viewerCtrl.svgTag);
 	xx = new VivusInstant(viewerCtrl.svgTag, optCtrl.getOptions());
-	xx.mapping();
-	xx.setNaming();
+
 	dd.innerHTML = xx.render();
 	viewerCtrl.svgTag.classList.add('start')
 }

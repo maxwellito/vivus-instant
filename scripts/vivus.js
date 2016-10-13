@@ -46,6 +46,7 @@ var requestAnimFrame, cancelAnimFrame, parsePositiveInt;
  * @param {Object}       options  Options about the animation
  */
 function VivusInstant (element, options) {
+  this.dashGap = 1;
   // Setup
   this.setElement(element);
   this.setOptions(options);
@@ -53,14 +54,14 @@ function VivusInstant (element, options) {
 
 
 /**
- * Setters
+ * Element part
  **************************************
  */
 
 /**
  * Check and set the element in the instance
  * The method will not return anything, but will throw an
- * error if the parameter is invalid
+ * error if the parameter is invalid.
  *
  * @param {DOM|String}   element  SVG Dom element or id of it
  */
@@ -78,7 +79,74 @@ VivusInstant.prototype.setElement = function (element) {
     }
   }
   this.el = element;
+  this.elementClass = this.generateKey(8);
+  this.preMapping();
 };
+
+/**
+ * Pre-mapping select the 'animatable' paths to build
+ * the map array. The
+ * @return {[type]} [description]
+ */
+VivusInstant.prototype.preMapping = function () {
+  var i, path, pathObj,
+      paths = this.el.querySelectorAll('path');
+
+  this.map = [];
+  for (i = 0; i < paths.length; i++) {
+    path = paths[i];
+    if (this.isInvisible(path)) {
+      continue;
+    }
+    pathObj = {
+      el: path,
+      length: Math.ceil(path.getTotalLength())
+    };
+
+    // Test if the path length is correct
+    if (isNaN(pathObj.length)) {
+      if (window.console && console.warn) {
+        console.warn('VivusInstant [mapping]: cannot retrieve a path element length', path);
+      }
+      continue;
+    }
+
+    pathObj.strokeDasharray  = pathObj.length + ' ' + (pathObj.length + this.dashGap * 2);
+    pathObj.strokeDashoffset = pathObj.length + this.dashGap;
+    pathObj.length += this.dashGap;
+
+    pathObj.class = this.elementClass + '_' + this.map.length;
+    pathObj.el.classList.add(pathObj.class); //# FIX DAT' SHITE
+
+    this.map.push(pathObj);
+  }
+}
+
+/**
+ * generateKey
+ * generate a random key with the length
+ * of your choice, and return it
+ *
+ * @param  {number} length Length of the id
+ * @return {string}        The id
+ */
+VivusInstant.prototype.generateKey = function (length) {
+ var output = '',
+   src = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqsrtuvwxyz',
+   len = src.length;
+
+ while (length > 0) {
+   output += src[Math.floor(Math.random()*len)];
+   length--;
+ }
+ return output;
+};
+
+
+/**
+ * Options part
+ **************************************
+ */
 
 /**
  * Set up user option to the instance
@@ -112,24 +180,16 @@ VivusInstant.prototype.setOptions = function (options) {
   this.duration           = parsePositiveInt(options.duration, 120);
   this.delay              = parsePositiveInt(options.delay, null);
   this.pathTimingFunction = options.pathTimingFunction || 'linear';
-  this.dashGap            = parsePositiveInt(options.dashGap, 1);
   this.ignoreInvisible    = options.hasOwnProperty('ignoreInvisible') ? !!options.ignoreInvisible : false;
 
-  this.map = new Array();
   this.frameLength = this.currentFrame = this.delayUnit = this.speed = this.handle = null;
 
   if (this.delay >= this.duration) {
     throw new Error('VivusInstant [constructor]: delay must be shorter than duration');
   }
+
+  this.mapping();
 };
-
-
-
-
-/**
- * Core
- **************************************
- */
 
 /**
  * Map the svg, path by path.
@@ -138,51 +198,15 @@ VivusInstant.prototype.setOptions = function (options) {
  * a path element from the SVG, with informations for
  * the animation.
  *
- * ```
- * [
- *   {
- *     el: <DOMobj> the path element
- *     length: <number> length of the path line
- *     startAt: <number> time start of the path animation (in frames)
- *     duration: <number> path animation duration (in frames)
- *   },
- *   ...
- * ]
- * ```
- *
  */
 VivusInstant.prototype.mapping = function () {
-  var i, paths, path, pAttrs, pathObj, totalLength, lengthMeter, timePoint;
-  timePoint = totalLength = lengthMeter = 0;
-  paths = this.el.querySelectorAll('path');
+  var i, pAttrs, pathObj, totalLength, lengthMeter, timePoint;
+  timePoint = lengthMeter = 0;
 
-  for (i = 0; i < paths.length; i++) {
-    path = paths[i];
-    if (this.isInvisible(path)) {
-      continue;
-    }
-    pathObj = {
-      el: path,
-      length: Math.ceil(path.getTotalLength())
-    };
-
-    // Test if the path length is correct
-    if (isNaN(pathObj.length)) {
-      if (window.console && console.warn) {
-        console.warn('VivusInstant [mapping]: cannot retrieve a path element length', path);
-      }
-      continue;
-    }
-    this.map.push(pathObj);
-    pathObj.strokeDasharray  = pathObj.length + ' ' + (pathObj.length + this.dashGap * 2);
-    pathObj.strokeDashoffset = pathObj.length + this.dashGap;
-    pathObj.length += this.dashGap;
-    totalLength += pathObj.length;
-  }
-
+  totalLength = this.map.reduce(function (e, f) {return e + f.length}, 0);
   totalLength = totalLength === 0 ? 1 : totalLength;
   this.delay = this.delay === null ? this.duration / 3 : this.delay;
-  this.delayUnit = this.delay / (paths.length > 1 ? paths.length - 1 : 1);
+  this.delayUnit = this.delay / (this.map.length > 1 ? this.map.length - 1 : 1);
 
   for (i = 0; i < this.map.length; i++) {
     pathObj = this.map[i];
@@ -224,6 +248,7 @@ VivusInstant.prototype.mapping = function () {
     this.frameLength = this.frameLength || this.duration;
   }
 };
+
 /**
  * Method to best guess if a path should added into
  * the animation or not.
@@ -255,35 +280,11 @@ VivusInstant.prototype.isInvisible = function (el) {
   }
 };
 
- /**
-  * generateKey
-  * generate a random key with the length
-  * of your choice, and return it
-  *
-  * @param  {[string]} length Length of the id
-  * @param  {string}   type   Key type to generate
-  * @return {[string]}        The id
-  */
- VivusInstant.prototype.generateKey = function (length) {
- 	var output = '',
- 		src = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqsrtuvwxyz',
- 		len = src.length;
 
- 	while (length > 0) {
- 		output += src[Math.floor(Math.random()*len)];
- 		length--;
- 	}
- 	return output;
- };
-
-
-VivusInstant.prototype.setNaming = function () {
-  this.elementClass = this.generateKey(8);
-  for (var i = 0; i < this.map.length; i++) {
-    this.map[i].class = this.elementClass + '_' + i;
-    this.map[i].el.setAttribute('class',this.map[i].class); //# FIX DAT' SHITE
-  }
-};
+/**
+ * Render part
+ **************************************
+ */
 
 VivusInstant.prototype.render = function () {
   var pathObj, anim, styles = {};
