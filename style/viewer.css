@@ -1,4 +1,4 @@
-.viewer.light {
+.viewer {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAALUlEQVQoU2NkYGBgePfu3X8hISFGEBsdMIIkV69ezRAaGopNngGsC68JQ0EBAD6nItJPfzu2AAAAAElFTkSuQmCC) repeat;
 }
 
@@ -11,4 +11,24 @@
   width: 100%;
   padding: 2%;
   box-sizing: border-box;
+}
+
+
+input.viewer-switch {
+  position: relative;
+  top: 1rem;
+  left: 1rem;
+  background-color: #333;
+  color: #fff;
+}
+input.viewer-switch:before {
+  content: "switch to dark mode";
+}
+
+input.viewer-switch:checked {
+  background-color: #fff;
+  color: #333;
+}
+input.viewer-switch:checked:before {
+  content: "switch to light mode";
 }
