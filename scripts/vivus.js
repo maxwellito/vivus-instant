@@ -287,13 +287,21 @@ VivusInstant.prototype.isInvisible = function (el) {
  */
 
 VivusInstant.prototype.render = function () {
-  var pathObj, anim, styles = {};
+  var pathObj, anim,
+      style = new Stylesheet();
 
-  var keyf = [];
+  // Set base Vivus keyframes
+  var fadeDuration = (this.intervalPause/(this.duration + this.intervalPause)) * 100;
+  style.setKeyframe('vivus_draw', '100%{stroke-dashoffset:0;}');
+  style.setKeyframe('vivus_fade',
+        (100 - fadeDuration)+'%{stroke-opacity:1;}'+
+        (100 - (fadeDuration/2))+'%{stroke-opacity:1;}'+
+        '100%{stroke-opacity:0;}');
 
   for (var i = 0; i < this.map.length; i++) {
     pathObj = this.map[i];
-
+    style.setProperty('.' + pathObj.class, 'stroke-dasharray',  pathObj.strokeDasharray);
+    style.setProperty('.' + pathObj.class, 'stroke-dashoffset', pathObj.strokeDashoffset);
 
     if (!this.loop) {
       anim = 'vivus_draw' +
@@ -311,40 +319,21 @@ VivusInstant.prototype.render = function () {
               'linear 0ms ' +
               'infinite';
 
-      keyf.push('@keyframes vivus_draw_'+i+'{'+((pathObj.startAt)/(this.duration + this.intervalPause)*100)+'%{stroke-dashoffset: '+pathObj.strokeDashoffset+'}'+((pathObj.startAt+pathObj.duration)/(this.duration + this.intervalPause)*100)+'%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}')
+      style.setKeyframe('vivus_draw_'+i,
+                        ((pathObj.startAt)/(this.duration + this.intervalPause)*100)+'%{stroke-dashoffset: '+pathObj.strokeDashoffset+'}'+
+                        ((pathObj.startAt+pathObj.duration)/(this.duration + this.intervalPause)*100)+'%{ stroke-dashoffset: 0;}'+
+                        '100%{ stroke-dashoffset: 0;}');
     }
-
-    styles['.' + pathObj.class] = [
-      'stroke-dasharray:' + pathObj.strokeDasharray,
-      'stroke-dashoffset:' + pathObj.strokeDashoffset
-    ];
 
     if (this.start === 'autostart') {
-      styles['.' + pathObj.class].push('animation:' + anim);
+      style.setProperty('.' + pathObj.class, 'animation', anim);
     }
     else {
-      styles['.start .' + pathObj.class] = ['animation:' + anim];
+      style.setProperty('.start .' + pathObj.class, 'animation', anim);
     }
   }
 
-  //# Put something here to clean the CSS (avoid duplicate)
-
-  var props, css = [];
-  for(var selector in styles) {
-    props = styles[selector];
-    css.push(selector + '{' + props.join(';') + ';}');
-  }
-  css = css.join('');
-
-
-  var ff= (this.intervalPause/(this.duration + this.intervalPause)) * 100;
-
-  return '@keyframes vivus_draw { 100% { stroke-dashoffset: 0;}}'+
-  '@keyframes vivus_fade {'+
-  '  '+(100 - ff)+'%   { stroke-opacity: 1; }'+
-  '  '+(100 - (ff/2))+'%  { stroke-opacity: 1; }'+
-  '  100% { stroke-opacity: 0; }'+
-  '}' + keyf.join('') + css;
+  return style.render();
 };
 
 
