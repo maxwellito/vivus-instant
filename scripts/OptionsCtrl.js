@@ -15,7 +15,7 @@ OptionController.prototype.getOptions = function () {
   this.el
     .querySelectorAll('form *[name]')
     .forEach((el) => {
-      if (el.type === 'radio' && el.checked) {
+      if (el.type === 'radio' && !el.checked) {
         return;
       }
       else if (el.type === 'checkbox') {
