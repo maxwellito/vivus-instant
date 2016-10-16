@@ -1,6 +1,8 @@
 function OptionController (el) {
   this.el = el;
 
+  // Start listening on panel triggers
+  // (some input checkboxes toggle some submenus)
   el.querySelectorAll('input[x-panel]')
     .forEach(function (input) {
       input.addEventListener('click', function (e) {

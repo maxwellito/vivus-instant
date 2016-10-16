@@ -8,11 +8,18 @@ function ViewerController (el) {
   this.svgWrap.classList.add('viewer-wrap');
   el.appendChild(this.svgWrap);
 
+  // Create the 'a' tag to download
+  this.downloadAnchor = document.createElement('a');
+  this.downloadAnchor.style = 'display: none';
+  this.el.appendChild(this.downloadAnchor);
+
   // Listen for drag and drop
   el.addEventListener('drop',      this.dropped.bind(this),   false);
   el.addEventListener('dragover',  this.dragOver.bind(this),  false);
   el.addEventListener('dragleave', this.dragLeave.bind(this), false);
 }
+
+ViewerController.prototype.SVG_TYPE_FILE = 'image/svg+xml';
 
 ViewerController.prototype.onNewSVG = function (callback) {
   this.newSvgCb = callback;
@@ -51,7 +58,7 @@ ViewerController.prototype.buildSVG = function (event) {
 
   // Transform base64 to XML
   // fileContent = atob(fileContent);
-  if (!~fileContent.indexOf('image/svg+xml')) {
+  if (!~fileContent.indexOf(this.SVG_TYPE_FILE)) {
     throw new Error('Invalid file dropped. It is not a SVG.');
   }
   fileContent = atob(fileContent.substr(fileContent.indexOf('base64,') + 7));
@@ -72,4 +79,15 @@ ViewerController.prototype.buildSVG = function (event) {
   }
   this.svgTag = svgTags[0];
   this.newSvgCb && this.newSvgCb(this.svgTag);
+};
+
+ViewerController.prototype.download = function () {
+    var blob = new Blob([this.svgWrap.innerHTML], {type: this.SVG_TYPE_FILE}),
+        url = window.URL.createObjectURL(blob);
+    this.downloadAnchor.href = url;
+    this.downloadAnchor.download = this.svgFileName;
+    this.downloadAnchor.click();
+    window.setTimeout(function () {
+      window.URL.revokeObjectURL(url);
+    }, 10);
 };

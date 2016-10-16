@@ -87,41 +87,36 @@
 		      </label>
 				</div>
 				<button type="button" onclick="draw()" class="full-width">START</button>
+				<button type="button" onclick="viewerCtrl.download()" class="full-width">Download</button>
 	    </form>
 		</div>
 
+		<!-- Le scripts -->
+		<script src="scripts/stylesheet.js"></script>
+		<script src="scripts/pathformer.js"></script>
+		<script src="scripts/vivus.js"></script>
+		<script src="scripts/ViewerCtrl.js"></script>
+		<script src="scripts/OptionsCtrl.js"></script>
 
-<style id="dd"></style>
+		<script>
 
+		var myVivus,
+				viewerCtrl = new ViewerController(document.querySelector('.viewer')),
+				optionCtrl = new OptionController(document.querySelector('.sidebar'));
 
+		viewerCtrl.onNewSVG(function (leSVG) {
+			// Let's prepare the SVG by transforming all
+			// elements to paths.
+			new Pathformer(leSVG);
 
+			myVivus = new VivusInstant(leSVG, optionCtrl.getOptions());
+		});
 
-
-<script src="scripts/stylesheet.js"></script>
-<script src="scripts/pathformer.js"></script>
-<script src="scripts/vivus.js"></script>
-<script src="scripts/ViewerCtrl.js"></script>
-<script src="scripts/OptionsCtrl.js"></script>
-
-
-<script>
-function draw () {
-	myVivus.setOptions(optionCtrl.getOptions());
-	myVivus.render();
-}
-
-var myVivus,
-		viewerCtrl = new ViewerController(document.querySelector('.viewer')),
-		optionCtrl = new OptionController(document.querySelector('.sidebar'));
-
-viewerCtrl.onNewSVG(function (leSVG) {
-	// Let's prepare the SVG by transforming all
-	// elements to paths.
-	new Pathformer(leSVG);
-
-	myVivus = new VivusInstant(leSVG, optionCtrl.getOptions());
-});
-</script>
+		function draw () {
+			myVivus.setOptions(optionCtrl.getOptions());
+			myVivus.render();
+		}
+		</script>
 
   </body>
 </html>
