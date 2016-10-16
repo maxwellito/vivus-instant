@@ -6,6 +6,10 @@
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAK0lEQVQoU2NkYGD4LygoyPD+/XsGbIBRUFDwf2hoKMPq1auxKyBowlBQAAC5ViA0t+GxeQAAAABJRU5ErkJggg==) repeat;
 }
 
+.viewer-wrap {
+  height: 100%;
+}
+
 .viewer svg {
   height: 100%;
   width: 100%;
@@ -15,7 +19,7 @@
 
 
 input.viewer-switch {
-  position: relative;
+  position: absolute;
   top: 1rem;
   left: 1rem;
   background-color: #333;

@@ -1,12 +1,12 @@
 function ViewerController (el) {
   this.el = el;
-
   this.svgTag = null;
   this.svgFileName = null;
-  this.svgPre = '';
-  this.svgPost = '';
-
   this.newSvgCb = null;
+
+  this.svgWrap = document.createElement('div');
+  this.svgWrap.classList.add('viewer-wrap');
+  el.appendChild(this.svgWrap);
 
   // Listen for drag and drop
   el.addEventListener('drop',      this.dropped.bind(this),   false);
@@ -56,28 +56,20 @@ ViewerController.prototype.buildSVG = function (event) {
   }
   fileContent = atob(fileContent.substr(fileContent.indexOf('base64,') + 7));
 
-  // Find SVG tag indexes
-  var indexStart = fileContent.indexOf('<svg'),
-      indexEnd   = fileContent.indexOf('</svg>');
-
-  if (!~indexStart || !~indexEnd) {
-    throw new Error('Cannot find SVG tag. You sure it\'s an SVG and not a cat picture?');
+  this.svgWrap.innerHTML = fileContent;
+  var svgTags = this.svgWrap.querySelectorAll('svg');
+  if (svgTags.length === 0) {
+    throw new Error('Cannot find the SVG tag in your file. You sure it\'s an SVG and not a cat picture?');
   }
-
-  // Save content pre and post SVG
-  this.svgPre  = fileContent.substr(0, indexStart);
-  this.svgPost = fileContent.substr(indexEnd + 6);
-  fileContent  = fileContent.substr(indexStart, indexEnd + 6 - indexStart);
-
-  var wrapDom = document.createElement('div');
-  wrapDom.innerHTML = fileContent;
+  else if (svgTags.length > 1) {
+    throw new Error('Wow! Wait a minute! There\'s more than one SVG in your file. Sorry the rule is one person per ticket.');
+  }
 
   // Delete previous SVG if existing
   if (this.svg) {
     this.el.removeChild(this.svgTag);
     this.svgTag.remove();
   }
-  this.svgTag = wrapDom.childNodes[0];
-  this.el.appendChild(this.svgTag);
+  this.svgTag = svgTags[0];
   this.newSvgCb && this.newSvgCb(this.svg);
 };
