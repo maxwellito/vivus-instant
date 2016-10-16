@@ -47,6 +47,7 @@ var requestAnimFrame, cancelAnimFrame, parsePositiveInt;
  */
 function VivusInstant (element, options) {
   this.dashGap = 1;
+
   // Setup
   this.setElement(element);
   this.setOptions(options);
@@ -80,6 +81,10 @@ VivusInstant.prototype.setElement = function (element) {
   }
   this.el = element;
   this.elementClass = this.generateKey(8);
+
+  this.styleTag = document.createElement('style');
+  this.el.appendChild(this.styleTag);
+
   this.preMapping();
 };
 
@@ -333,7 +338,7 @@ VivusInstant.prototype.render = function () {
     }
   }
 
-  return style.render();
+  this.styleTag.innerHTML = style.render();
 };
 
 

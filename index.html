@@ -106,26 +106,21 @@
 
 <script>
 function draw () {
-	opt = {
-	  type:'delayed',
-	  start:'manual',
-	  loop:true,
-	  intervalPause:400,
-	  duration:2000,
-	  delay:null,
-	  pathTimingFunction:'linear',
-	  dashGap:null
-	}
-
-	new Pathformer(viewerCtrl.svgTag);
-	xx = new VivusInstant(viewerCtrl.svgTag, optCtrl.getOptions());
-
-	dd.innerHTML = xx.render();
-	viewerCtrl.svgTag.classList.add('start')
+	myVivus.setOptions(optionCtrl.getOptions());
+	myVivus.render();
 }
 
-var viewerCtrl = new ViewerController(document.querySelector('.viewer'));
-var optCtrl = new OptionController(document.querySelector('.sidebar'));
+var myVivus,
+		viewerCtrl = new ViewerController(document.querySelector('.viewer')),
+		optionCtrl = new OptionController(document.querySelector('.sidebar'));
+
+viewerCtrl.onNewSVG(function (leSVG) {
+	// Let's prepare the SVG by transforming all
+	// elements to paths.
+	new Pathformer(leSVG);
+
+	myVivus = new VivusInstant(leSVG, optionCtrl.getOptions());
+});
 </script>
 
   </body>

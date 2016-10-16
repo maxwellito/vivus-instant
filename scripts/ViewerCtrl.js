@@ -66,10 +66,10 @@ ViewerController.prototype.buildSVG = function (event) {
   }
 
   // Delete previous SVG if existing
-  if (this.svg) {
+  if (this.svgTag) {
     this.el.removeChild(this.svgTag);
     this.svgTag.remove();
   }
   this.svgTag = svgTags[0];
-  this.newSvgCb && this.newSvgCb(this.svg);
+  this.newSvgCb && this.newSvgCb(this.svgTag);
 };
