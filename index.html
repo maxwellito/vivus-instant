@@ -26,26 +26,35 @@
 			</div>
 	    <form>
 				<div class="form-radio">
-					<input  id="form_start_auto" type="radio" name="start" value="autostart" checked="checked">
+					<input  id="form_start_auto" type="radio" name="start" value="autostart" checked="checked" onchange="optionCtrl.updateForm()">
 					<label for="form_start_auto">Autostart</label>
-					<input  id="form_start_manuel" type="radio" name="start" value="manual">
+					<input  id="form_start_manuel" type="radio" name="start" value="manual" onchange="optionCtrl.updateForm()">
 					<label for="form_start_manuel">Manual</label>
 				</div>
+
+				<fieldset class="manual-trigger-class-panel">
+					<label class="form-input-inline">
+						<span class="label">Trigger class</span>
+						<input type="text" name="triggerClass" value="start"/>
+					</label>
+				</fieldset>
 
 				<fieldset>
 					<div class="form-input-inline">
 		        <span class="label">Animation type</span>
-		        <select name="type">
-		          <option value="delayed" selected="selected">delayed</option>
-		          <option value="async">async</option>
-		          <option value="oneByOne">oneByOne</option>
+		        <select name="type" onchange="optionCtrl.updateForm()">
+		          <option value="delayed" selected="selected">Delayed start</option>
+		          <option value="async">Syncronous</option>
+		          <option value="oneByOne">One By One</option>
+							<!-- This is not mainstream enough to be released
 		          <option value="script">script</option>
 		          <option value="scenario">scenario</option>
 		          <option value="scenario-sync">scenario-sync</option>
+							-->
 		        </select>
 		      </div>
 
-					<label class="form-input-inline">
+					<label class="form-input-inline delay-panel">
 		        <span class="label">Delay <span class="label-info">in ms</span></span>
 		        <input type="number" min="0" name="delay" placeholder="auto"/>
 		      </label>
@@ -72,28 +81,28 @@
 				<fieldset>
 					<label class="form-input-inline">
 						<span class="label">Loop</span>
-						<input type="checkbox" name="loop" x-panel="control-loop-panel">
+						<input type="checkbox" name="loop"  onchange="optionCtrl.updateForm()">
 					</label>
 
-					<div class="control-loop-panel" style="display: none;">
+					<div class="control-loop-panel">
 						<label class="form-input-inline">
 							<span class="label">End pause <span class="label-info">in ms</span></span>
-							<input type="number" name="intervalPause" value="3000"/>
+							<input type="number" name="loopEnd" value="3000"/>
 						</label>
 
 						<label class="form-input-inline">
 							<span class="label">Fade duration <span class="label-info">in ms</span></span>
-							<input type="number" name="fadeDuration" value="400"/>
+							<input type="number" name="loopTransition" value="400"/>
 						</label>
 
 						<label class="form-input-inline">
 							<span class="label">Start delay <span class="label-info">in ms</span></span>
-							<input type="number" name="startDelay" value="800"/>
+							<input type="number" name="loopStart" value="800"/>
 						</label>
 					</div>
 				</fieldset>
 
-				<button type="button" onclick="draw()" class="full-width">START</button>
+				<button type="button" onclick="draw()" class="full-width">Update</button>
 				<button type="button" onclick="viewerCtrl.download()" class="full-width" disabled>Download</button>
 	    </form>
 		</div>
@@ -112,14 +121,16 @@
 				optionCtrl = new OptionController(document.querySelector('.sidebar'));
 
 		viewerCtrl.onNewSVG(function (leSVG) {
+			optionCtrl.toggleActions(true);
+
 			// Let's prepare the SVG by transforming all
 			// elements to paths.
 			new Pathformer(leSVG);
-
 			myVivus = new VivusInstant(leSVG, optionCtrl.getOptions());
 		});
 
 		function draw () {
+			viewerCtrl.refreshSVG();
 			myVivus.setOptions(optionCtrl.getOptions());
 			myVivus.render();
 		}

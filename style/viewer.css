@@ -1,11 +1,12 @@
 @import 'variables.css';
 
 .viewer {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAACVBMVEX////MzMyZmZnTl7o6AAAAFElEQVR4AWMgCjCi85kwRBiGBwAABiYAB7t8bP8AAAAASUVORK5CYII=);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAADFBMVEV/f3////9/f39/f39xh0+XAAAABHRSTlMAAGbMEuYkIAAAAB1JREFUeAFjYEQDQAEmBlQBJmYmVAEGdBVAMEwEAIvjAQSzFyXaAAAAAElFTkSuQmCC);
+  background-color: var(--shade-lighter);
 }
 
 .viewer.dark {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAACVBMVEUAAAAzMzNmZmbevrYEAAAAFElEQVR4AWMgCjCi85kwRBiGBwAABiYAB7t8bP8AAAAASUVORK5CYII=);
+  background-color: var(--shade-darker);
 }
 
 .viewer-wrap {

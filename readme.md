@@ -57,6 +57,11 @@ If you want to play with it but you need an SVG for it, download the unanimated 
 [x] Make the background color changeable
 [x] Add github link
 
+[ ] Toolbar feedback
+[ ] Trigger manual + download
+[ ] Intro message
+[ ] Form validation
+[ ] Add honest comments
 
 ## Le Flow
 

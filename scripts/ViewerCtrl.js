@@ -74,11 +74,20 @@ ViewerController.prototype.buildSVG = function (event) {
 
   // Delete previous SVG if existing
   if (this.svgTag) {
-    this.el.removeChild(this.svgTag);
     this.svgTag.remove();
   }
   this.svgTag = svgTags[0];
   this.newSvgCb && this.newSvgCb(this.svgTag);
+};
+
+ViewerController.prototype.refreshSVG = function () {
+  var svgTag = this.svgTag;
+  requestAnimationFrame(function () {
+    svgTag.style.display = 'none';
+    requestAnimationFrame(function () {
+      svgTag.style.display = '';
+    });
+  });
 };
 
 ViewerController.prototype.download = function () {

@@ -1,16 +1,19 @@
 function OptionController (el) {
   this.el = el;
+  this.toggleActions(false);
 
-  // Start listening on panel triggers
-  // (some input checkboxes toggle some submenus)
-  el.querySelectorAll('input[x-panel]')
-    .forEach(function (input) {
-      input.addEventListener('click', function (e) {
-        var panel = document.querySelector('.' + e.currentTarget.getAttribute('x-panel'));
-        panel.style.display = e.currentTarget.checked ? 'block' : 'none';
-      });
-    })
+  this.panelLoop = el.querySelector('.control-loop-panel');
+  this.panelDelay = el.querySelector('.delay-panel');
+  this.panelTriggerClass = el.querySelector('.manual-trigger-class-panel');
+  this.updateForm();
 }
+
+OptionController.prototype.updateForm = function () {
+  var options = this.getOptions();
+  this.panelLoop.style.display         = options.loop ? '' : 'none';
+  this.panelDelay.style.display        = options.type === 'delayed' ? '' : 'none';
+  this.panelTriggerClass.style.display = options.start === 'manual' ? '' : 'none';
+};
 
 OptionController.prototype.getOptions = function () {
   var options = {};
@@ -28,4 +31,12 @@ OptionController.prototype.getOptions = function () {
       }
     });
   return options;
+};
+
+OptionController.prototype.toggleActions = function (areEnabled) {
+  this.el
+    .querySelectorAll('button')
+    .forEach(function (el) {
+      el.disabled = !areEnabled;
+    })
 };

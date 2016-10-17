@@ -80,7 +80,7 @@ VivusInstant.prototype.setElement = function (element) {
     }
   }
   this.el = element;
-  this.elementClass = this.generateKey(8);
+  this.id = this.generateKey(8);
 
   this.styleTag = document.createElement('style');
   this.el.appendChild(this.styleTag);
@@ -120,7 +120,7 @@ VivusInstant.prototype.preMapping = function () {
     pathObj.strokeDashoffset = pathObj.length + this.dashGap;
     pathObj.length += this.dashGap;
 
-    pathObj.class = this.elementClass + '_' + this.map.length;
+    pathObj.class = this.id + '_' + this.map.length;
     pathObj.el.classList.add(pathObj.class); //# FIX DAT' SHITE
 
     this.map.push(pathObj);
@@ -181,13 +181,17 @@ VivusInstant.prototype.setOptions = function (options) {
   }
 
   this.loop               = !!options.loop;
-  this.intervalPause      = parsePositiveInt(options.intervalPause, 0);
-  this.duration           = parsePositiveInt(options.duration, 120);
+  this.loopEnd            = parsePositiveInt(options.loopEnd, 0);
+  this.loopTransition     = parsePositiveInt(options.loopTransition, 0);
+  this.loopStart          = parsePositiveInt(options.loopStart, 0);
+  this.duration           = parsePositiveInt(options.duration, 2000);
   this.delay              = parsePositiveInt(options.delay, null);
   this.pathTimingFunction = options.pathTimingFunction || 'linear';
   this.ignoreInvisible    = options.hasOwnProperty('ignoreInvisible') ? !!options.ignoreInvisible : false;
+  this.triggerClass       = options.triggerClass || 'start';
 
   this.frameLength = this.currentFrame = this.delayUnit = this.speed = this.handle = null;
+  this.totalDuration      = this.loopStart + this.duration + this.loopEnd + this.loopTransition;
 
   if (this.delay >= this.duration) {
     throw new Error('VivusInstant [constructor]: delay must be shorter than duration');
@@ -291,16 +295,21 @@ VivusInstant.prototype.isInvisible = function (el) {
  **************************************
  */
 
+/**
+ * About this method... I accept insults in issues.
+ * I deserve them.
+ * @return {[type]} [description]
+ */
 VivusInstant.prototype.render = function () {
   var pathObj, anim,
       style = new Stylesheet();
 
   // Set base Vivus keyframes
-  var fadeDuration = (this.intervalPause/(this.duration + this.intervalPause)) * 100;
-  style.setKeyframe('vivus_draw', '100%{stroke-dashoffset:0;}');
-  style.setKeyframe('vivus_fade',
+  var fadeDuration = (this.loopTransition/this.totalDuration) * 100;
+  style.setKeyframe(this.id + '_draw', '100%{stroke-dashoffset:0;}');
+  style.setKeyframe(this.id + '_fade',
+        '0%{stroke-opacity:1;}'+
         (100 - fadeDuration)+'%{stroke-opacity:1;}'+
-        (100 - (fadeDuration/2))+'%{stroke-opacity:1;}'+
         '100%{stroke-opacity:0;}');
 
   for (var i = 0; i < this.map.length; i++) {
@@ -309,24 +318,24 @@ VivusInstant.prototype.render = function () {
     style.setProperty('.' + pathObj.class, 'stroke-dashoffset', pathObj.strokeDashoffset);
 
     if (!this.loop) {
-      anim = 'vivus_draw' +
+      anim = this.id + '_draw' +
              ' ' + (pathObj.duration >> 0) + 'ms' +
              ' ' + this.pathTimingFunction +
              ' ' + (pathObj.startAt >> 0) + 'ms' +
              ' forwards';
     }
     else {
-      anim = 'vivus_draw_' + i +
-             ' ' + (this.duration + this.intervalPause) + 'ms' +
+      anim = this.id + '_draw_' + i +
+             ' ' + this.totalDuration + 'ms' +
              ' ' + this.pathTimingFunction +
              ' 0ms infinite,' +
-              'vivus_fade ' + (this.duration + this.intervalPause) + 'ms ' +
+              this.id + '_fade ' + this.totalDuration + 'ms ' +
               'linear 0ms ' +
               'infinite';
 
-      style.setKeyframe('vivus_draw_'+i,
-                        ((pathObj.startAt)/(this.duration + this.intervalPause)*100)+'%{stroke-dashoffset: '+pathObj.strokeDashoffset+'}'+
-                        ((pathObj.startAt+pathObj.duration)/(this.duration + this.intervalPause)*100)+'%{ stroke-dashoffset: 0;}'+
+      style.setKeyframe(this.id + '_draw_'+i,
+                        ((this.loopStart+pathObj.startAt)/(this.totalDuration)*100)+'%{stroke-dashoffset: '+pathObj.strokeDashoffset+'}'+
+                        ((this.loopStart+pathObj.startAt+pathObj.duration)/(this.totalDuration)*100)+'%{ stroke-dashoffset: 0;}'+
                         '100%{ stroke-dashoffset: 0;}');
     }
 
@@ -334,7 +343,7 @@ VivusInstant.prototype.render = function () {
       style.setProperty('.' + pathObj.class, 'animation', anim);
     }
     else {
-      style.setProperty('.start .' + pathObj.class, 'animation', anim);
+      style.setProperty('.' + this.triggerClass + ' .' + pathObj.class, 'animation', anim);
     }
   }
 
