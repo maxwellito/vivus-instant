@@ -1,9 +1,11 @@
+@import 'variables.css';
+
 .viewer {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAALUlEQVQoU2NkYGBgePfu3X8hISFGEBsdMIIkV69ezRAaGopNngGsC68JQ0EBAD6nItJPfzu2AAAAAElFTkSuQmCC) repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAACVBMVEX////MzMyZmZnTl7o6AAAAFElEQVR4AWMgCjCi85kwRBiGBwAABiYAB7t8bP8AAAAASUVORK5CYII=);
 }
 
 .viewer.dark {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAK0lEQVQoU2NkYGD4LygoyPD+/XsGbIBRUFDwf2hoKMPq1auxKyBowlBQAAC5ViA0t+GxeQAAAABJRU5ErkJggg==) repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAACVBMVEUAAAAzMzNmZmbevrYEAAAAFElEQVR4AWMgCjCi85kwRBiGBwAABiYAB7t8bP8AAAAASUVORK5CYII=);
 }
 
 .viewer-wrap {
@@ -22,16 +24,16 @@ input.viewer-switch {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--shade-darker);
+  color: var(--shade-lighter);
 }
 input.viewer-switch:before {
   content: "switch to dark mode";
 }
 
 input.viewer-switch:checked {
-  background-color: #fff;
-  color: #333;
+  background-color: var(--shade-lighter);
+  color: var(--shade-darker);
 }
 input.viewer-switch:checked:before {
   content: "switch to light mode";

@@ -32,62 +32,69 @@
 					<label for="form_start_manuel">Manual</label>
 				</div>
 
-				<div class="form-input-inline">
-	        <span class="label">Animation type</span>
-	        <select name="type">
-	          <option value="delayed" selected="selected">delayed</option>
-	          <option value="async">async</option>
-	          <option value="oneByOne">oneByOne</option>
-	          <option value="script">script</option>
-	          <option value="scenario">scenario</option>
-	          <option value="scenario-sync">scenario-sync</option>
-	        </select>
-	      </div>
-
-	      <label class="form-input-inline">
-	        <span class="label">Duration <span class="label-info">in ms</span></span>
-	        <input type="number" min="0" name="duration" value="3000"/>
-	      </label>
-
-	      <label class="form-input-inline">
-	        <span class="label">Delay <span class="label-info">in ms</span></span>
-	        <input type="number" min="0" name="delay" placeholder="auto"/>
-	      </label>
-
-	      <div class="form-input-inline">
-	        <span class="label">Path timing function</span>
-	        <select name="pathTimingFunction">
-	          <option value="linear" selected="selected">Linear</option>
-	          <option value="ease">Ease</option>
-	          <option value="ease_in">Ease-in</option>
-	          <option value="ease_out">Ease-out</option>
-	          <option value="ease_in_out">Ease in out</option>
-	        </select>
-	      </div>
-
-	      <label class="form-input-inline">
-          <span class="label">Loop</span>
-          <input type="checkbox" name="loop" x-panel="control-loop-panel">
-	      </label>
-
-				<div class="control-loop-panel" style="display: none;">
-					<label class="form-input-inline">
-		        <span class="label">End pause <span class="label-info">in ms</span></span>
-		        <input type="number" name="intervalPause" value="3000"/>
-		      </label>
+				<fieldset>
+					<div class="form-input-inline">
+		        <span class="label">Animation type</span>
+		        <select name="type">
+		          <option value="delayed" selected="selected">delayed</option>
+		          <option value="async">async</option>
+		          <option value="oneByOne">oneByOne</option>
+		          <option value="script">script</option>
+		          <option value="scenario">scenario</option>
+		          <option value="scenario-sync">scenario-sync</option>
+		        </select>
+		      </div>
 
 					<label class="form-input-inline">
-		        <span class="label">Fade duration <span class="label-info">in ms</span></span>
-		        <input type="number" name="fadeDuration" value="400"/>
+		        <span class="label">Delay <span class="label-info">in ms</span></span>
+		        <input type="number" min="0" name="delay" placeholder="auto"/>
+		      </label>
+				</fieldset>
+
+				<fieldset>
+					<label class="form-input-inline">
+		        <span class="label">Duration <span class="label-info">in ms</span></span>
+		        <input type="number" min="0" name="duration" value="3000"/>
 		      </label>
 
+		      <div class="form-input-inline">
+		        <span class="label">Path timing function</span>
+		        <select name="pathTimingFunction">
+		          <option value="linear" selected="selected">Linear</option>
+		          <option value="ease">Ease</option>
+		          <option value="ease_in">Ease-in</option>
+		          <option value="ease_out">Ease-out</option>
+		          <option value="ease_in_out">Ease in out</option>
+		        </select>
+		      </div>
+				</fieldset>
+
+				<fieldset>
 					<label class="form-input-inline">
-		        <span class="label">Start delay <span class="label-info">in ms</span></span>
-		        <input type="number" name="startDelay" value="800"/>
-		      </label>
-				</div>
+						<span class="label">Loop</span>
+						<input type="checkbox" name="loop" x-panel="control-loop-panel">
+					</label>
+
+					<div class="control-loop-panel" style="display: none;">
+						<label class="form-input-inline">
+							<span class="label">End pause <span class="label-info">in ms</span></span>
+							<input type="number" name="intervalPause" value="3000"/>
+						</label>
+
+						<label class="form-input-inline">
+							<span class="label">Fade duration <span class="label-info">in ms</span></span>
+							<input type="number" name="fadeDuration" value="400"/>
+						</label>
+
+						<label class="form-input-inline">
+							<span class="label">Start delay <span class="label-info">in ms</span></span>
+							<input type="number" name="startDelay" value="800"/>
+						</label>
+					</div>
+				</fieldset>
+
 				<button type="button" onclick="draw()" class="full-width">START</button>
-				<button type="button" onclick="viewerCtrl.download()" class="full-width">Download</button>
+				<button type="button" onclick="viewerCtrl.download()" class="full-width" disabled>Download</button>
 	    </form>
 		</div>
 

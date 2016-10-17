@@ -1,6 +1,9 @@
+@import 'variables.css';
+
 html {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
+  color: var(--shade-light);
+  background-color: var(--shade-dark);
 }
 
 html, body {
@@ -20,8 +23,9 @@ input, select, option {
   font-size: 1rem;
   padding: .25em;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--shade-light);
   border-radius: 0;
+  color: var(--shade-light);
   background: none;
   line-height: 1.2;
   height: 1.2rem;
@@ -33,45 +37,52 @@ input, select, option {
 
 input:active, select:active, option:active, button:active,
 input:focus,  select:focus,  option:focus,  button:focus {
-  border-color: #333;
+  border-color: var(--primary);
   outline: none;
 }
 
 input[type='checkbox'] {
   padding: 0 .75em;
-  background-color: #ccc;
-  border: none;
+  background-color: var(--shade-dark);
   border-radius: .6em;
-  color: #999;
+  border: none;
+  color: var(--shade-light);
   transition: all .3s;
+  box-sizing: border-box;
 }
 input[type='checkbox']:before {
   content: "off";
 }
 
 input[type='checkbox']:checked {
-  background-color: #1af;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--shade-darker);
 }
 input[type='checkbox']:checked:before {
   content: "on";
 }
 
 button {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--primary);
+  border-radius: .25rem;
   font-size: 1rem;
+  color: var(--primary);
   background: none;
 }
 button:hover {
-  background: #ccc;
+  background: var(--primary);
+  color: var(--gray-darker);
 }
 button:active {
-  background: #333;
-  color: #fff;
+  background: var(--shade-darker);
+  color: var(--shade-lighter);
+}
+button:disabled, button:disabled:hover, button:disabled:active {
+  border-color: var(--shade-darker);
+  background: none;
+  color: var(--shade-darker);
 }
 button.full-width {
-  width: 100%;
   padding: .5em;
   box-sizing: border-box;
 }
@@ -85,7 +96,6 @@ button.full-width {
     bottom: 0;
     left: 0;
     width: 22rem;
-    border-right: 2px solid #eee;
   }
 
   .viewer, .toolbar {
