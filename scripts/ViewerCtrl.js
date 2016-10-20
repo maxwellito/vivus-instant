@@ -15,8 +15,8 @@ function ViewerController (el) {
 
   // Listen for drag and drop
   el.addEventListener('drop',      this.dropped.bind(this),   false);
-  el.addEventListener('dragover',  this.dragOver.bind(this),  false);
-  el.addEventListener('dragleave', this.dragLeave.bind(this), false);
+  el.addEventListener('dragover',  this.dragStart.bind(this), false);
+  el.addEventListener('dragleave', this.dragEnd.bind(this),   false);
 }
 
 ViewerController.prototype.SVG_TYPE_FILE = 'image/svg+xml';
@@ -25,18 +25,18 @@ ViewerController.prototype.onNewSVG = function (callback) {
   this.newSvgCb = callback;
 }
 
-ViewerController.prototype.dragOver = function (event) {
+ViewerController.prototype.dragStart = function (event) {
   event.preventDefault();
   this.el.classList.add('droppin');
 };
 
-ViewerController.prototype.dragLeave = function (event) {
+ViewerController.prototype.dragEnd = function (event) {
   event.preventDefault();
   this.el.classList.remove('droppin');
 };
 
 ViewerController.prototype.dropped = function (event) {
-  event.preventDefault();
+  this.dragEnd(event);
 
   var file, data = event.dataTransfer;
   if (!data || !data.files || !data.files[0]) {
