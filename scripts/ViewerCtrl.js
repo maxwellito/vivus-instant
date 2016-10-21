@@ -3,6 +3,7 @@ function ViewerController (el) {
   this.svgTag = null;
   this.svgFileName = null;
   this.newSvgCb = null;
+  this.introEl = el.querySelector('.introbox');
 
   this.svgWrap = document.createElement('div');
   this.svgWrap.classList.add('viewer-wrap');
@@ -37,6 +38,13 @@ ViewerController.prototype.dragEnd = function (event) {
 
 ViewerController.prototype.dropped = function (event) {
   this.dragEnd(event);
+
+  // Delete the intro box if it's still with us.
+  // Otherwise R.I.P.
+  if (this.introEl) {
+    this.introEl.remove();
+    this.introEl = null;
+  }
 
   var file, data = event.dataTransfer;
   if (!data || !data.files || !data.files[0]) {

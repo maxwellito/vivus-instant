@@ -15,6 +15,10 @@ a {
   color: inherit;
 }
 
+p {
+  line-height: 1.5;
+}
+
 label {
   cursor: pointer;
 }
@@ -71,7 +75,7 @@ button {
 }
 button:hover {
   background: var(--primary);
-  color: var(--gray-darker);
+  color: var(--shade-darker);
 }
 button:active {
   background: var(--shade-darker);
@@ -87,6 +91,9 @@ button.full-width {
   box-sizing: border-box;
 }
 
+.pre {
+  font-family: monospace;
+}
 
 
 @media (min-width: 768px) {

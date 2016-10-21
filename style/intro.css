@@ -1,0 +1,18 @@
+@import 'variables.css';
+
+.introbox {
+  width: 400px;
+  max-width: 90%;
+  padding: 1rem;
+  margin: 5% auto;
+  z-index: 100;
+  background: var(--shade-lighter);
+}
+
+.introbox img {
+  width: 100%;
+}
+
+.introbox p {
+  text-align: center;
+}
