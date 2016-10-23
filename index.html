@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Vivus Instant - inline svg animation</title>
+		<title>Vivus Instant - inline SVG animation with CSS</title>
 		<meta name="description" content="Inline SVG Drawing Animation" />
 
 		<link rel="stylesheet" href="style/layout.css">
@@ -15,18 +15,26 @@
   <body>
 
 		<div class="viewer">
-			<input class="viewer-switch" type="checkbox" onchange="this.parentNode.classList.toggle('dark')">
+			<label class="viewer-switch">
+				<input type="checkbox" onchange="this.parentNode.parentNode.classList.toggle('dark')">
+				<span class="checkbox-label" label-on="switch to dark mode" label-off="switch to light mode"></span>
+			</label>
+			<div class="alert-error"></div>
 			<div class="introbox">
-				<img src="assets/vivus_instant_logo_loop.svg" />
+				<!--
+					Oh? Why the logo is in an object tag instead of an img?
+					Let say animated SVGs in img and Firefox aren't getting along...
+				-->
+				<object type="image/svg+xml" data="assets/vivus_instant_logo_loop.svg"></object>
+
 				<p>Make drawing stroke animation without JavaScript.</p>
-				<p>Simply drag and drop your stroke based SVG and set your options.
+				<p>Simply <span class="important">drag and drop</span> your stroke based SVG and set your options.
 					The result will be animated by CSS and ready to export, and used inline or in a <span class="pre">&lt;img&gt;</span> tag.</p>
 				<p>If you want to play with, here is the <a href="assets/vivus_instant_logo.svg" download>un-animated logo</a>.</p>
 				<p>This is a beta, expect crashes, bananas and explosions.<br>
 				Also use the amazing <a href="https://jakearchibald.github.io/svgomg/">SVGOMG</a> to clean your SVG before playing here.</p>
 			</div>
 		</div>
-		<div class="toolbar"></div>
 
 		<div class="sidebar">
 			<div class="sidebar-head">
@@ -93,7 +101,11 @@
 				<fieldset>
 					<label class="form-input-inline">
 						<span class="label">Loop</span>
-						<input type="checkbox" name="loop"  onchange="optionCtrl.updateForm()">
+						<span>
+							<input type="checkbox" name="loop"  onchange="optionCtrl.updateForm()">
+							<span class="checkbox-label" label-on="on" label-off="off"></span>
+						</span>
+
 					</label>
 
 					<div class="control-loop-panel">
@@ -125,16 +137,15 @@
 		<script src="scripts/vivus.js"></script>
 		<script src="scripts/ViewerCtrl.js"></script>
 		<script src="scripts/OptionsCtrl.js"></script>
+		<script src="scripts/utils.js"></script>
 
 		<script>
-
 		var myVivus,
 				viewerCtrl = new ViewerController(document.querySelector('.viewer')),
 				optionCtrl = new OptionController(document.querySelector('.sidebar'));
 
 		viewerCtrl.onNewSVG(function (leSVG) {
 			optionCtrl.toggleActions(true);
-
 			// Let's prepare the SVG by transforming all
 			// elements to paths.
 			new Pathformer(leSVG);
@@ -145,6 +156,19 @@
 			viewerCtrl.refreshSVG();
 			myVivus.setOptions(optionCtrl.getOptions());
 			myVivus.render();
+		}
+
+		// Cheap way to inform the user about errors.
+		var alertBoxTimeout,
+				alertBox = document.querySelector('.alert-error');
+		window.onerror = function (msg) {
+			alertBox.textContent = msg;
+			alertBox.classList.add('show');
+			if (!alertBoxTimeout) {
+				setTimeout(function () {
+					alertBox.classList.remove('show');
+				}, 8000);
+			}
 		}
 		</script>
 

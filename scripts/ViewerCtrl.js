@@ -1,3 +1,14 @@
+/**
+ * ViewerController class
+ * Cheap controller for the viewer.
+ * It takes a DOM element as parameter which is
+ * supposed to content all the required items of
+ * a viewer :
+ * - an input:checkbox as theme switcher
+ * - an .introbox to welcome people (no, I won't rename it Consuela, noooo...)
+ *
+ * @param {DOM} el Viewer element
+ */
 function ViewerController (el) {
   this.el = el;
   this.svgTag = null;
@@ -15,27 +26,63 @@ function ViewerController (el) {
   this.el.appendChild(this.downloadAnchor);
 
   // Listen for drag and drop
-  el.addEventListener('drop',      this.dropped.bind(this),   false);
-  el.addEventListener('dragover',  this.dragStart.bind(this), false);
-  el.addEventListener('dragleave', this.dragEnd.bind(this),   false);
+  this.el.addEventListener('drop',      this.dropped.bind(this),   true);
+  this.el.addEventListener('dragenter', this.dragStart.bind(this), true);
+  this.el.addEventListener('dragleave', this.dragStart.bind(this), true);
+  this.el.addEventListener('dragover',  this.dragStart.bind(this), false);
 }
 
-ViewerController.prototype.SVG_TYPE_FILE = 'image/svg+xml';
+/**
+ * SVG content type
+ * This is what we are looking for.
+ * @type {String}
+ */
+ViewerController.prototype.SVG_CONTENT_TYPE = 'image/svg+xml';
 
+
+/* SETTERS */
+
+/**
+ * Set the callback to be triggered when a new SVG
+ * is dropped. The callback will be executed with
+ * the new SVG element as parameter.
+ * Of course you can only have one callback set per
+ * ViewerController instance.
+ * Sorry, not sorry.
+ *
+ * @param  {Function} callback
+ */
 ViewerController.prototype.onNewSVG = function (callback) {
   this.newSvgCb = callback;
 }
 
+/* DROPPIN' */
+
+/**
+ * Listener for when you turn on RuPaul party
+ * @param  {Event} event Drag event, we accept all drag events
+ */
 ViewerController.prototype.dragStart = function (event) {
   event.preventDefault();
   this.el.classList.add('droppin');
 };
 
+/**
+ * Listener to turn off the party.
+ * Soz' bitches.
+ * @param  {Event} event Sad drag events..
+ */
 ViewerController.prototype.dragEnd = function (event) {
   event.preventDefault();
   this.el.classList.remove('droppin');
 };
 
+/**
+ * Listener for when an item is dropped on the
+ * viewer. It will load the first file dropped
+ * then provide the loaded event to `buildSVG`.
+ * @param  {Event} event Drop event
+ */
 ViewerController.prototype.dropped = function (event) {
   this.dragEnd(event);
 
@@ -48,6 +95,7 @@ ViewerController.prototype.dropped = function (event) {
 
   var file, data = event.dataTransfer;
   if (!data || !data.files || !data.files[0]) {
+    // They see me droppin'...  they hatin'.....
     return;
   }
 
@@ -57,6 +105,11 @@ ViewerController.prototype.dropped = function (event) {
   this.svgFileName = data.files[0].name;
 };
 
+/**
+ * Set up the SVG contained in the 'load' event.
+ * And make sure it's valid.
+ * @param  {event} event Load event
+ */
 ViewerController.prototype.buildSVG = function (event) {
   var fileContent = event.currentTarget.result;
 
@@ -66,7 +119,7 @@ ViewerController.prototype.buildSVG = function (event) {
 
   // Transform base64 to XML
   // fileContent = atob(fileContent);
-  if (!~fileContent.indexOf(this.SVG_TYPE_FILE)) {
+  if (!~fileContent.indexOf(this.SVG_CONTENT_TYPE)) {
     throw new Error('Invalid file dropped. It is not a SVG.');
   }
   fileContent = atob(fileContent.substr(fileContent.indexOf('base64,') + 7));
@@ -88,6 +141,17 @@ ViewerController.prototype.buildSVG = function (event) {
   this.newSvgCb && this.newSvgCb(this.svgTag);
 };
 
+/**
+ * Dirty trick to refresh the SVG animation.
+ * THe idea is simple, it wait the next browser
+ * rendering frame to hide the SVG. Then wait the
+ * following one to display it again.
+ * TA-DAHHH!!
+ * The animation restart!
+ * Dirty, right?
+ *
+ * What if there's a race conditi... shhhhhhhhush!
+ */
 ViewerController.prototype.refreshSVG = function () {
   var svgTag = this.svgTag;
   requestAnimationFrame(function () {
@@ -98,8 +162,15 @@ ViewerController.prototype.refreshSVG = function () {
   });
 };
 
+/**
+ * Simulate download to provide the SVG.
+ * It shouldn't detroy the content, that why
+ * it's using a div wrap. If there's some extra
+ * DOM elements (like Illustrator signature
+ * or other stuff..) it will be in the output.
+ */
 ViewerController.prototype.download = function () {
-    var blob = new Blob([this.svgWrap.innerHTML], {type: this.SVG_TYPE_FILE}),
+    var blob = new Blob([this.svgWrap.innerHTML], {type: this.SVG_CONTENT_TYPE}),
         url = window.URL.createObjectURL(blob);
     this.downloadAnchor.href = url;
     this.downloadAnchor.download = this.svgFileName;

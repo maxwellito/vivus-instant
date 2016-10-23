@@ -5,14 +5,17 @@
   max-width: 90%;
   padding: 1rem;
   margin: 5% auto;
-  z-index: 100;
+  color: var(--shade-dark);
+  text-align: center;
   background: var(--shade-lighter);
+  z-index: 100;
 }
 
-.introbox img {
+.introbox object {
   width: 100%;
 }
 
-.introbox p {
-  text-align: center;
+.viewer.dark .introbox {
+  color: var(--shade-light);
+  background: var(--shade-darker);
 }

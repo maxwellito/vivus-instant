@@ -43,7 +43,7 @@ fieldset {
 .form-input-inline input[type="text"],
 .form-input-inline input[type="number"],
 .form-input-inline select {
-  width: 6rem;
+  width: 7rem;
 }
 
 

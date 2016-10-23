@@ -57,4 +57,4 @@ Stylesheet.prototype.render = function () {
 
   return output;
   // Where is the optimisation? Good question.
-}
+};

@@ -11,33 +11,21 @@
 
 .viewer.droppin, .viewer.dark.droppin {
   background-image: linear-gradient(45deg,
-    #E40303 0%,
-    #E40303 8.332%,
-    #FF8C00 8.333%,
-    #FF8C00 16.665%,
-    #FFED00 16.666%,
-    #FFED00 24.999%,
-    #008026 25%,
-    #008026 33.332%,
-    #004DFF 33.333%,
-    #004DFF 41.666%,
-    #750787 41.667%,
-    #750787 49.999%,
-    #E40303 50%,
-    #E40303 58.332%,
-    #FF8C00 58.333%,
-    #FF8C00 66.665%,
-    #FFED00 66.666%,
-    #FFED00 74.999%,
-    #008026 75%,
-    #008026 83.332%,
-    #004DFF 83.333%,
-    #004DFF 91.666%,
-    #750787 91.667%,
-    #750787 100%
+    #E40303 0%,       #E40303 8.332%,  /* RAINBOW */
+    #FF8C00 8.333%,   #FF8C00 16.665%, /* WRAINBO */
+    #FFED00 16.666%,  #FFED00 24.999%, /* OWRAINB */
+    #008026 25%,      #008026 33.332%, /* BOWRAIN */
+    #004DFF 33.333%,  #004DFF 41.666%, /* NBOWRAI */
+    #750787 41.667%,  #750787 49.999%, /* INBOWRA */
+    #E40303 50%,      #E40303 58.332%, /* AINBOWR */
+    #FF8C00 58.333%,  #FF8C00 66.665%, /* RAINBOW */
+    #FFED00 66.666%,  #FFED00 74.999%, /* WRAINBO */
+    #008026 75%,      #008026 83.332%, /* OWRAINB */
+    #004DFF 83.333%,  #004DFF 91.666%, /* BOWRAIN */
+    #750787 91.667%,  #750787 100%     /* NBOWRAI */
   );
   background-size: 800px 800px;
-  animation: moveFlag .75s linear infinite;
+  animation: moveFlag 2s linear infinite;
 }
 
 .viewer.droppin:before {
@@ -45,18 +33,20 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 20rem;
+  width: 25rem;
   max-width: 80%;
-  padding: .125em 0;
-  border: 4px dotted currentColor;
-  border-radius: .2em;
+  padding: 0 .5em;
+  border: 1rem double currentColor;
+  border-radius: .5em;
   color: var(--shade-lighter);
   font-size: 4em;
+  font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
   transform: translate(-50%, -50%);
 }
 
-.viewer.droppin svg {
+.viewer.droppin svg, .viewer.droppin .introbox {
   display: none;
 }
 
@@ -78,21 +68,37 @@
 }
 
 
-input.viewer-switch {
+.viewer-switch {
   position: absolute;
   top: 1rem;
   left: 1rem;
+}
+.viewer-switch input {
   background-color: var(--shade-darker);
   color: var(--shade-lighter);
 }
-input.viewer-switch:before {
-  content: "switch to dark mode";
-}
-
-input.viewer-switch:checked {
+.viewer-switch input:checked + .checkbox-label {
   background-color: var(--shade-lighter);
   color: var(--shade-darker);
 }
-input.viewer-switch:checked:before {
-  content: "switch to light mode";
+
+
+.alert-error {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  padding: .5em;
+  border-radius: .25rem;
+  visibility: hidden;
+  opacity: 0;
+  color: white;
+  background-color: red;
+  transition: visibility 0s linear .3s, opacity .3s;
+}
+
+.alert-error.show {
+  visibility: inherit;
+  opacity: 1;
+  transition: visibility 0s, opacity .3s;
 }

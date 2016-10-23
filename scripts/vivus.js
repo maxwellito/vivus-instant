@@ -349,20 +349,3 @@ VivusInstant.prototype.render = function () {
 
   this.styleTag.innerHTML = style.render();
 };
-
-
-/**
- * Parse string to integer.
- * If the number is not positive or null
- * the method will return the default value
- * or 0 if undefined
- *
- * @param {string} value String to parse
- * @param {*} defaultValue Value to return if the result parsed is invalid
- * @return {number}
- *
- */
-parsePositiveInt = function (value, defaultValue) {
-  var output = parseInt(value, 10);
-  return (output >= 0) ? output : defaultValue;
-};

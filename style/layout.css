@@ -19,13 +19,18 @@ p {
   line-height: 1.5;
 }
 
+
+/**
+ * Form stuff
+ *
+ */
 label {
   cursor: pointer;
 }
 
 input, select, option {
   font-size: 1rem;
-  padding: .25em;
+  padding: .25em 0;
   border: none;
   border-bottom: 1px solid var(--shade-light);
   border-radius: 0;
@@ -45,7 +50,17 @@ input:focus,  select:focus,  option:focus,  button:focus {
   outline: none;
 }
 
+
+/**
+ * Fancy checkboxes
+ *
+ * <input type="checkbox"/>
+ * <span class="checkbox-label" label-on="Enabled!" label-off="off."></span>
+ */
 input[type='checkbox'] {
+  display: none;
+}
+input[type='checkbox'] + .checkbox-label {
   padding: 0 .75em;
   background-color: var(--shade-dark);
   border-radius: .6em;
@@ -54,18 +69,20 @@ input[type='checkbox'] {
   transition: all .3s;
   box-sizing: border-box;
 }
-input[type='checkbox']:before {
-  content: "off";
+input[type='checkbox'] + .checkbox-label:before {
+  content: attr(label-off);
 }
-
-input[type='checkbox']:checked {
+input[type='checkbox']:checked + .checkbox-label {
   background-color: var(--primary);
   color: var(--shade-darker);
 }
-input[type='checkbox']:checked:before {
-  content: "on";
+input[type='checkbox']:checked + .checkbox-label:before {
+  content: attr(label-on);
 }
 
+/**
+ * Buttons
+ */
 button {
   border: 1px solid var(--primary);
   border-radius: .25rem;
@@ -91,35 +108,29 @@ button.full-width {
   box-sizing: border-box;
 }
 
+.important {
+  font-weight: bold;
+  font-style: italic;
+}
+
 .pre {
   font-family: monospace;
 }
 
 
-@media (min-width: 768px) {
-  .sidebar {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 22rem;
-  }
+/* Layout */
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 22rem;
+}
 
-  .viewer, .toolbar {
-    position: fixed;
-    right: 0;
-    left: 22rem;
-  }
-
-  .viewer {
-    top: 0;
-    bottom: 2rem;
-    background: red;
-  }
-
-  .toolbar {
-    height: 2rem;
-    bottom: 0;
-    background: green;
-  }
+.viewer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 22rem;
 }
