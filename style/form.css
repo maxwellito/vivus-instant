@@ -1,29 +1,5 @@
 @import 'variables.css';
 
-html {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: var(--shade-light);
-  background-color: var(--shade-dark);
-}
-
-html, body {
-  margin: 0;
-  height: 100%;
-}
-
-a {
-  color: inherit;
-}
-
-p {
-  line-height: 1.5;
-}
-
-
-/**
- * Form stuff
- *
- */
 label {
   cursor: pointer;
 }
@@ -48,6 +24,14 @@ input:active, select:active, option:active, button:active,
 input:focus,  select:focus,  option:focus,  button:focus {
   border-color: var(--primary);
   outline: none;
+}
+
+fieldset {
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  border: none;
+  margin: .5rem 0;
+  background-color: var(--shade-darker);
 }
 
 
@@ -106,31 +90,4 @@ button:disabled, button:disabled:hover, button:disabled:active {
 button.full-width {
   padding: .5em;
   box-sizing: border-box;
-}
-
-.important {
-  font-weight: bold;
-  font-style: italic;
-}
-
-.pre {
-  font-family: monospace;
-}
-
-
-/* Layout */
-.sidebar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 22rem;
-}
-
-.viewer {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 22rem;
 }

@@ -1,6 +1,11 @@
 @import 'variables.css';
 
 .viewer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 22rem;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAADFBMVEV/f3////9/f39/f39xh0+XAAAABHRSTlMAAGbMEuYkIAAAAB1JREFUeAFjYEQDQAEmBlQBJmYmVAEGdBVAMEwEAIvjAQSzFyXaAAAAAElFTkSuQmCC);
   background-color: var(--shade-lighter);
 }

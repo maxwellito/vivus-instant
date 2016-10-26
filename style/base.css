@@ -1,0 +1,29 @@
+@import 'variables.css';
+
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--shade-light);
+  background-color: var(--shade-dark);
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+p {
+  line-height: 1.5;
+}
+
+.important {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.pre {
+  font-family: monospace;
+}

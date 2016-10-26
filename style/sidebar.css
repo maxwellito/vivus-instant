@@ -1,20 +1,17 @@
 @import 'variables.css';
 
-/* Control panel */
+/* Sidebar */
 .sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 22rem;
   overflow: auto;
 }
 
 .sidebar > * {
   padding: 1rem;
-}
-
-fieldset {
-  padding: .25rem .5rem;
-  border-radius: .25rem;
-  border: none;
-  margin: .5rem 0;
-  background-color: var(--shade-darker);
 }
 
 
