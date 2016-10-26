@@ -349,3 +349,20 @@ VivusInstant.prototype.render = function () {
 
   this.styleTag.innerHTML = style.render();
 };
+
+/**
+ * Add or remove the trigger class
+ * @param  {boolean} status If the class must be set or not
+ */
+VivusInstant.prototype.toggleTrigger = function (status) {
+  if (this.start !== 'manual') {
+    return;
+  }
+
+  if (status) {
+    this.el.classList.add(this.triggerClass);
+  }
+  else {
+    this.el.classList.remove(this.triggerClass);
+  }
+}

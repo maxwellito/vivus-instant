@@ -13,10 +13,14 @@
  * to serialise a form with one method...
  * (please tell me I'm wrong in an issue)
  *
- * @param {[type]} el [description]
+ * @param {DOMelement} el Option dom element
+ * @param {ViewerController} viewer Viewer controller
  */
-function OptionController (el) {
+function OptionController (el, viewer) {
   this.el = el;
+  this.viewer = viewer;
+  this.vivus = null;
+
   this.buttons = el.querySelectorAll('button');
   this.fields  = el.querySelectorAll('form *[name]');
   this.toggleActions(false);
@@ -25,6 +29,15 @@ function OptionController (el) {
   this.panelDelay = el.querySelector('.delay-panel');
   this.panelTriggerClass = el.querySelector('.manual-trigger-class-panel');
   this.updateForm();
+
+  viewerCtrl.onNewSVG(function (leSVG) {
+    this.toggleActions(true);
+
+    // Let's prepare the SVG by transforming all
+    // elements to paths.
+    new Pathformer(leSVG);
+    this.vivus = new VivusInstant(leSVG, this.getOptions());
+  }.bind(this));
 }
 
 /**
@@ -68,4 +81,26 @@ OptionController.prototype.toggleActions = function (areEnabled) {
   forEach(this.buttons, function(index, button) {
     button.disabled = !areEnabled;
   });
+};
+
+/**
+ * Take the values of the options and generate/refresh
+ * the SVG
+ */
+OptionController.prototype.draw = function () {
+  this.viewer.refreshSVG();
+  this.vivus.toggleTrigger(false);
+  this.vivus.setOptions(this.getOptions());
+  this.vivus.render();
+  this.vivus.toggleTrigger(true);
+
+};
+
+/**
+ * Trigger the download
+ */
+OptionController.prototype.download = function () {
+  this.vivus.toggleTrigger(false);
+  this.viewer.download();
+  this.vivus.toggleTrigger(true);
 };

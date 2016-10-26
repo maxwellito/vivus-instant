@@ -127,8 +127,8 @@
 					</div>
 				</fieldset>
 
-				<button type="button" onclick="draw()" class="full-width">Update</button>
-				<button type="button" onclick="viewerCtrl.download()" class="full-width" disabled>Download</button>
+				<button type="button" onclick="optionCtrl.draw()" class="full-width">Update</button>
+				<button type="button" onclick="optionCtrl.download()" class="full-width" disabled>Download</button>
 	    </form>
 		</div>
 
@@ -141,23 +141,8 @@
 		<script src="scripts/utils.js"></script>
 
 		<script>
-		var myVivus,
-				viewerCtrl = new ViewerController(document.querySelector('.viewer')),
-				optionCtrl = new OptionController(document.querySelector('.sidebar'));
-
-		viewerCtrl.onNewSVG(function (leSVG) {
-			optionCtrl.toggleActions(true);
-			// Let's prepare the SVG by transforming all
-			// elements to paths.
-			new Pathformer(leSVG);
-			myVivus = new VivusInstant(leSVG, optionCtrl.getOptions());
-		});
-
-		function draw () {
-			viewerCtrl.refreshSVG();
-			myVivus.setOptions(optionCtrl.getOptions());
-			myVivus.render();
-		}
+		var viewerCtrl = new ViewerController(document.querySelector('.viewer')),
+				optionCtrl = new OptionController(document.querySelector('.sidebar'), viewerCtrl);
 
 		// Cheap way to inform the user about errors.
 		var alertBoxTimeout,
@@ -170,7 +155,7 @@
 					alertBox.classList.remove('show');
 				}, 8000);
 			}
-		}
+		};
 		</script>
 
   </body>

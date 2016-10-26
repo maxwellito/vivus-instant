@@ -102,7 +102,7 @@ ViewerController.prototype.dropped = function (event) {
   file = new FileReader();
   file.addEventListener('load', this.buildSVG.bind(this), false);
   file.readAsDataURL(data.files[0]);
-  this.svgFileName = data.files[0].name;
+  this.svgFileName = data.files[0].name || 'vivus.svg';
 };
 
 /**
@@ -173,7 +173,7 @@ ViewerController.prototype.download = function () {
     var blob = new Blob([this.svgWrap.innerHTML], {type: this.SVG_CONTENT_TYPE}),
         url = window.URL.createObjectURL(blob);
     this.downloadAnchor.href = url;
-    this.downloadAnchor.download = this.svgFileName;
+    this.downloadAnchor.download = this.svgFileName.replace(/\.svg$/i, '_animated.svg');
     this.downloadAnchor.click();
     window.setTimeout(function () {
       window.URL.revokeObjectURL(url);
