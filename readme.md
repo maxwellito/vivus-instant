@@ -8,7 +8,7 @@ Single page app to create independent stroke animated SVGs.
 
 ## Why this project?
 
-Simply because many developers seems happy to use [Vivus](https://maxwellito.github.io/vivus) to animate SVGs, however many times it's for a single use without controls or callbacks.. so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
+Many developers seems happy to use [Vivus](https://maxwellito.github.io/vivus) to animate SVGs, however many times it's for a single use without controls or callbacks.. so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
 
 By looking at the code, you can mention a copy of the Pathformer and a custom Vivus. The entire controls and drawing parts have been stripped down to let place to a rendering engine.
 
@@ -21,7 +21,7 @@ By looking at the code, you can mention a copy of the Pathformer and a custom Vi
 <!-- This might be clunky -->
 <img src="your_animated_svg.svg"/>
 
-<!-- Copy pasting your SVG to use it inline -->
+<!-- Copy pasting your animated SVG to use it inline -->
 <svg>
   ...
 </svg>
@@ -29,12 +29,8 @@ By looking at the code, you can mention a copy of the Pathformer and a custom Vi
 
 ### Manual trigger
 
-This works by adding the trigger class on the parent SVG tag. Because of this, it must be done inline, that means your entire SVG code must be in your HTML page. Otherwise the trigger won't work.
-So in this case it's not possible to embed your sweet SVG relatively via an `<img>` tag. However in a object tag it is possible to access the SVG tag to add the trigger class, but it require some extra logic to wait the document is loaded. The tag is accessible vie the property `contentDocument` of the `<object>` tag.
-
-### Inline SVG
-
-This way remain the most reliable. If it doesn't work, it's because the browser doesn't support CSS animations. Sorry, not sorry.
+This works by adding the trigger class to the SVG tag. Unfortunately, it can only be done inline, that means your entire SVG code must be in your HTML page. Otherwise the trigger won't work.
+However in a object tag it is possible to access the SVG tag to add the trigger class, but it require some extra logic to wait the document load. The tag is accessible vie the property `contentDocument` of the `<object>` tag.
 
 ## Help and feedback
 

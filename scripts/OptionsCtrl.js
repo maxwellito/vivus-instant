@@ -7,8 +7,8 @@
  * supposed to content all the required fields of
  * a Vivus option object.
  *
- * Funny enough, we have crazy new feature
- * in ES2015(& more)/HTML/CSS and other
+ * Funny enough, we have crazy new features
+ * in ES2015(& more)/HTML5/CSS3 and other
  * experiments. But it's still not possible
  * to serialise a form with one method...
  * (please tell me I'm wrong in an issue)
@@ -54,7 +54,7 @@ OptionController.prototype.updateForm = function () {
 
 /**
  * Basic method to serialise input values
- * in the form.
+ * in the form. That's cheap but does the job.
  * @return {Object} Serialised values of the form
  */
 OptionController.prototype.getOptions = function () {
@@ -93,7 +93,6 @@ OptionController.prototype.draw = function () {
   this.vivus.setOptions(this.getOptions());
   this.vivus.render();
   this.vivus.toggleTrigger(true);
-
 };
 
 /**

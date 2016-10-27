@@ -298,7 +298,6 @@ VivusInstant.prototype.isInvisible = function (el) {
 /**
  * About this method... I accept insults in issues.
  * I deserve them.
- * @return {[type]} [description]
  */
 VivusInstant.prototype.render = function () {
   var pathObj, anim,

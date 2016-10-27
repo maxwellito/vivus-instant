@@ -60,7 +60,7 @@ ViewerController.prototype.onNewSVG = function (callback) {
 
 /**
  * Listener for when you turn on RuPaul party
- * @param  {Event} event Drag event, we accept all drag events
+ * @param  {Event} event Drag event, we accept all drag events, even Michelle Visage showing her tits
  */
 ViewerController.prototype.dragStart = function (event) {
   event.preventDefault();
@@ -143,7 +143,7 @@ ViewerController.prototype.buildSVG = function (event) {
 
 /**
  * Dirty trick to refresh the SVG animation.
- * THe idea is simple, it wait the next browser
+ * The idea is simple, it wait the next browser
  * rendering frame to hide the SVG. Then wait the
  * following one to display it again.
  * TA-DAHHH!!
@@ -164,10 +164,10 @@ ViewerController.prototype.refreshSVG = function () {
 
 /**
  * Simulate download to provide the SVG.
- * It shouldn't detroy the content, that why
+ * It shouldn't destroy the content, thats why
  * it's using a div wrap. If there's some extra
  * DOM elements (like Illustrator signature
- * or other stuff..) it will be in the output.
+ * or other stuff..) it will be kept in the output.
  */
 ViewerController.prototype.download = function () {
     var blob = new Blob([this.svgWrap.innerHTML], {type: this.SVG_CONTENT_TYPE}),
