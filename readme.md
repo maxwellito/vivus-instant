@@ -1,4 +1,4 @@
-![Vivus instant](assets/vivus_instant_logo.svg)
+# Vivus instant
 
 [Try Vivus Instant](https://maxwellito.github.io/vivus-instant/).
 
