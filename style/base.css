@@ -24,6 +24,14 @@ p {
   font-style: italic;
 }
 
+.lookAtMe-lookAtMe-lookAtMe {
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  padding: .25em 0;
+}
+
 .pre {
   font-family: monospace;
 }

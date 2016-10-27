@@ -14,6 +14,35 @@
   background-color: var(--shade-darker);
 }
 
+.viewer-wrap {
+  height: 100%;
+}
+
+.viewer svg {
+  height: 100%;
+  width: 100%;
+  padding: 2%;
+  box-sizing: border-box;
+}
+
+
+/* Custom switch */
+.viewer-switch {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.viewer-switch input {
+  background-color: var(--shade-darker);
+  color: var(--shade-lighter);
+}
+.viewer-switch input:checked + .checkbox-label {
+  background-color: var(--shade-lighter);
+  color: var(--shade-darker);
+}
+
+
+/* RuPaul Drag and Drop Race */
 .viewer.droppin, .viewer.dark.droppin {
   background-image: linear-gradient(45deg,
     #E40303 0%,       #E40303 8.332%,  /* RAINBOW */
@@ -61,33 +90,7 @@
 }
 
 
-.viewer-wrap {
-  height: 100%;
-}
-
-.viewer svg {
-  height: 100%;
-  width: 100%;
-  padding: 2%;
-  box-sizing: border-box;
-}
-
-
-.viewer-switch {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-.viewer-switch input {
-  background-color: var(--shade-darker);
-  color: var(--shade-lighter);
-}
-.viewer-switch input:checked + .checkbox-label {
-  background-color: var(--shade-lighter);
-  color: var(--shade-darker);
-}
-
-
+/* Alertbox */
 .alert-error {
   position: absolute;
   bottom: 1rem;
