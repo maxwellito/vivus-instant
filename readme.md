@@ -1,14 +1,14 @@
-# Vivus instant
+![Vivus instant](assets/vivus_instant_logo.svg)
 
-[Try Vivus Instant](https://maxwellito.github.io/vivus-instant).
+[Try Vivus Instant](https://maxwellito.github.io/vivus-instant/).
 
-> It's like [Vivus](https://maxwellito.github.io/vivus) but for a disposable usage. Powered by CSS animations.
+> It's like [Vivus](https://maxwellito.github.io/vivus/) but for a disposable usage. Powered by CSS animations.
 
 Single page app to create independent stroke animated SVGs.
 
 ## Why this project?
 
-Many developers seems happy to use [Vivus](https://maxwellito.github.io/vivus) to animate SVGs, however many times it's for a single use without controls or callbacks.. so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
+Many developers seems happy to use [Vivus](https://maxwellito.github.io/vivus/) to animate SVGs, however many times it's for a single use without controls or callbacks.. so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
 
 By looking at the code, you can mention a copy of the Pathformer and a custom Vivus. The entire controls and drawing parts have been stripped down to let place to a rendering engine.
 
