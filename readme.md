@@ -4,11 +4,11 @@
 
 > It's like [Vivus](https://maxwellito.github.io/vivus/) but for a disposable usage. Powered by CSS animations.
 
-Single page app to create independent stroke animated SVGs.
+Single page app to create independent stroke animated SVGs. Open your SVG to make sure that the < g > tag has stroke in there somewhere.
 
 ## Why this project?
 
-Many developers seems happy to use [Vivus](https://maxwellito.github.io/vivus/) to animate SVGs, however many times it's for a single use without controls or callbacks.. so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
+Many developers seem happy to use [Vivus](https://maxwellito.github.io/vivus/) to animate SVGs, however many times it's for a single use without controls or callbacks... so why downloading an extra JS library when a piece of CSS can do the job? So here it is: Vivus instant.
 
 By looking at the code, you can mention a copy of the Pathformer and a custom Vivus. The entire controls and drawing parts have been stripped down to let place to a rendering engine.
 
@@ -34,4 +34,4 @@ However in a object tag it is possible to access the SVG tag to add the trigger 
 
 ## Help and feedback
 
-This tools is in beta. Any feedback or bug report is welcome. Please open an issue or a pull request. Just follow the requirements in the issue template :)
+This tool is in beta. Any feedback or bug reports are welcome. Please open an issue or a pull request. Just follow the requirements in the issue template :)
