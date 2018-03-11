@@ -83,6 +83,7 @@ VivusInstant.prototype.setElement = function (element) {
   this.id = this.generateKey(8);
 
   this.styleTag = document.createElement('style');
+  this.styleTag.setAttribute('data-made-with', 'vivus-instant')
   this.el.appendChild(this.styleTag);
 
   this.preMapping();

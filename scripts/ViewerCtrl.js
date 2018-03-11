@@ -124,14 +124,22 @@ ViewerController.prototype.buildSVG = function (event) {
   }
   fileContent = atob(fileContent.substr(fileContent.indexOf('base64,') + 7));
 
-  this.svgWrap.innerHTML = fileContent;
-  var svgTags = this.svgWrap.querySelectorAll('svg');
+  var domSandbox = document.createElement('div');
+  domSandbox.innerHTML = fileContent;
+
+  var svgTags = domSandbox.querySelectorAll('svg');
   if (svgTags.length === 0) {
     throw new Error('Cannot find the SVG tag in your file. You sure it\'s an SVG and not a cat picture?');
   }
   else if (svgTags.length > 1) {
     throw new Error('Wow! Wait a minute! There\'s more than one SVG in your file. Sorry the rule is one person per ticket.');
   }
+  if (svgTags[0].querySelector('style[data-made-with="vivus-instant"]')) {
+    throw new Error('This SVG cannot be modified because it was generated with Vivus-instant. Please use the original SVG.')
+  }
+
+  this.svgWrap.innerHTML = fileContent;
+  svgTags = this.svgWrap.querySelectorAll('svg');
 
   // Delete previous SVG if existing
   if (this.svgTag) {
