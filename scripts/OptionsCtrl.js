@@ -37,6 +37,8 @@ function OptionController (el, viewer) {
     // elements to paths.
     new Pathformer(leSVG);
     this.vivus = new VivusInstant(leSVG, this.getOptions());
+
+    this.draw();
   }.bind(this));
 }
 
