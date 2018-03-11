@@ -117,6 +117,13 @@ VivusInstant.prototype.preMapping = function () {
       continue;
     }
 
+    // Reset styling
+    if (path.style.strokeDasharray || path.style.strokeDashoffset) {
+      window.onerror('Warning: Some elements of your SVG use `strokeDasharray` and/or `strokeDashoffset`. This might cause undesirable effects.')
+    }
+    path.style.strokeDasharray  = '';
+    path.style.strokeDashoffset = '';
+
     pathObj.strokeDasharray  = pathObj.length + ' ' + (pathObj.length + this.dashGap * 2);
     pathObj.strokeDashoffset = pathObj.length + this.dashGap;
     pathObj.length += this.dashGap;
